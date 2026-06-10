@@ -1,0 +1,19 @@
+{
+  "title": "AWGP Books — OCR Review",
+  "description": "Download OCR packages, correct text against page images, and return ocr-corrected.txt to the AWGP team.",
+  "storage_bucket": "books-ocr-review",
+  "books": [
+    {
+      "id": "01ba2961-be01-4d4c-ad88-330cdeadbed9",
+      "code": "ENGP0810_DETERMINATION_PAVES_THE_WAY_TO_SUCCESS_xxyyyy",
+      "title": "ENGP0810 DETERMINATION PAVES THE WAY TO SUCCESS xxyyyy",
+      "language": "english",
+      "pages": 37,
+      "status": "needs_review",
+      "zip_name": "ENGP0810-determination-paves-the-way-to-success-xxyyyy.zip",
+      "storage_path": "english/ENGP0810-determination-paves-the-way-to-success-xxyyyy.zip",
+      "download_url": "https://xcgweboulqmijwtyaitw.supabase.co/storage/v1/object/public/books-ocr-review/english/ENGP0810-determination-paves-the-way-to-success-xxyyyy.zip",
+      "updated_at": "2026-06-10"
+    }
+  ]
+}

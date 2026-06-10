@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>AWGP Books — OCR Review</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --fg: #1d1d1f;
+      --muted: #6e6e73;
+      --bg: #f5f5f7;
+      --card: #fff;
+      --accent: #ff6b35;
+      --ok: #248a3d;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --fg: #f5f5f7; --muted: #a1a1a6; --bg: #0d0d0f; --card: #1c1c1e; }
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 24px 16px 48px;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.5;
+    }
+    .wrap { max-width: 920px; margin: 0 auto; }
+    header { margin-bottom: 28px; }
+    .badge {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    h1 { font-size: 1.75rem; margin: 0 0 10px; }
+    .lead { color: var(--muted); margin: 0 0 20px; max-width: 640px; }
+    .steps {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+    }
+    .steps ol { margin: 0; padding-left: 20px; }
+    .steps li { margin: 6px 0; }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+    }
+    th, td {
+      text-align: left;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(128,128,128,.18);
+      vertical-align: top;
+    }
+    th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+    tr:last-child td { border-bottom: none; }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: var(--accent);
+      color: #fff !important;
+      white-space: nowrap;
+    }
+    .status {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,107,53,.15);
+      color: var(--accent);
+    }
+    .status.published { background: rgba(36,138,61,.15); color: var(--ok); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; color: var(--muted); }
+    footer { margin-top: 28px; text-align: center; font-size: 12px; color: var(--muted); }
+    .error { color: #c0392b; }
+    @media (max-width: 720px) {
+      table, thead, tbody, th, td, tr { display: block; }
+      thead { display: none; }
+      tr { border-bottom: 1px solid rgba(128,128,128,.18); padding: 12px 0; }
+      td { border: none; padding: 4px 16px; }
+      td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 2px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="badge">Volunteer workflow</p>
+      <h1 id="page-title">AWGP Books — OCR Review</h1>
+      <p class="lead" id="page-desc">Loading books…</p>
+    </header>
+
+    <section class="steps">
+      <strong>How to help</strong>
+      <ol>
+        <li>Download the book zip (contains page images + <span class="mono">ocr-draft.txt</span>).</li>
+        <li>Open images alongside the draft text and fix OCR mistakes.</li>
+        <li>Keep page markers exactly: <span class="mono">===== PAGE N =====</span></li>
+        <li>Save your file as <span class="mono">ocr-corrected.txt</span> and send it back to the AWGP team.</li>
+      </ol>
+    </section>
+
+    <div id="content"><p class="lead">Loading…</p></div>
+    <footer>All World Gayatri Pariwar · AWGP Books</footer>
+  </div>
+  <script>
+    (function () {
+      var STATUS_LABEL = {
+        needs_review: 'Needs review',
+        in_review: 'In review',
+        corrected: 'Corrected',
+        published: 'Published'
+      };
+
+      function esc(s) {
+        return String(s || '').replace(/[&<>"']/g, function (c) {
+          return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+        });
+      }
+
+      function renderBooks(manifest) {
+        var books = manifest.books || [];
+        if (!books.length) {
+          return '<p class="lead">No books listed yet. An admin will add packages here.</p>';
+        }
+        var rows = books.map(function (b) {
+          var statusClass = b.status === 'published' ? 'status published' : 'status';
+          return '<tr>' +
+            '<td data-label="Code"><strong>' + esc(b.code || '—') + '</strong></td>' +
+            '<td data-label="Title">' + esc(b.title) + '<br><span class="mono">' + esc(b.zip_name) + '</span></td>' +
+            '<td data-label="Language">' + esc(b.language) + '</td>' +
+            '<td data-label="Pages">' + esc(String(b.pages || '—')) + '</td>' +
+            '<td data-label="Status"><span class="' + statusClass + '">' + esc(STATUS_LABEL[b.status] || b.status) + '</span></td>' +
+            '<td data-label="Download"><a class="btn" href="' + esc(b.download_url) + '" download>Download zip</a></td>' +
+            '</tr>';
+        }).join('');
+        return '<table><thead><tr>' +
+          '<th>Code</th><th>Title</th><th>Language</th><th>Pages</th><th>Status</th><th>Download</th>' +
+          '</tr></thead><tbody>' + rows + '</tbody></table>';
+      }
+
+      fetch('manifest.json', { cache: 'no-store' })
+        .then(function (r) {
+          if (!r.ok) throw new Error('manifest.json not found');
+          return r.json();
+        })
+        .then(function (manifest) {
+          document.getElementById('page-title').textContent = manifest.title || 'AWGP Books — OCR Review';
+          document.getElementById('page-desc').textContent = manifest.description || '';
+          document.getElementById('content').innerHTML = renderBooks(manifest);
+        })
+        .catch(function (err) {
+          document.getElementById('content').innerHTML =
+            '<p class="error">Could not load manifest.json — ' + esc(err.message) + '</p>';
+        });
+    })();
+  </script>
+</body>
+</html>
