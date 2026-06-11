@@ -27,39 +27,35 @@ Local workflow for OCR packages: export, upload zips to Supabase, review/correct
 
 All commands from `c:\dev\git\awgp-mobile`:
 
+### New book (standard — use this going forward)
+
 ```powershell
 cd c:\dev\git\awgp-mobile
 
-# Upload zip to Supabase + refresh manifest.json
-npm run upload:ocr -- <book-uuid>
-
-# Or export + upload in one step
+# OCR + paragraph reflow + named zip + Supabase upload + manifest
 npm run export:ocr -- <book-uuid> --zip --upload
 ```
 
+OCR output joins wrapped lines into paragraphs automatically (`ocr-draft.txt`). Raw per-page text stays in `ocr/page_XXX.json`.
+
+Then sync public page (optional):
+
+```powershell
+Copy-Item books-landing\manifest.json C:\dev\git\awgp-books\ -Force
+# commit + push awgp-books (see GitHub section below)
+```
+
+### Re-export / refresh an existing package
+
+If OCR already exists locally and you only need reflow + new zip + upload:
+
+```powershell
+npm run reflow:ocr -- <book-uuid> --upload
+```
+
+Requires `scripts/.epub-work/{uuid}-ocr/` from a prior export.
+
 Requires `.env` with `SUPABASE_URL` and `SUPABASE_SERVICE_ROLE_KEY`.
-
-### Upload existing package
-
-```powershell
-npm run upload:ocr -- <book-uuid>
-npm run upload:ocr -- <book-uuid> --pages 37   # optional page count
-```
-
-### Export new package
-
-```powershell
-npm run export:ocr -- <book-uuid> --zip
-```
-
-Creates named zip in `scripts/.epub-work/{uuid}-ocr/`  
-Format: `{code}-{title-slug}.zip` (e.g. `ENGP0810-determination-paves-the-way-to-success-xxyyyy.zip`).
-
-### Sample book (pilot)
-
-```powershell
-npm run upload:ocr -- 01ba2961-be01-4d4c-ad88-330cdeadbed9 --pages 37
-```
 
 ---
 
@@ -171,11 +167,13 @@ Public read on the bucket; uploads use service role from admin scripts.
 
 | Script | Purpose |
 |--------|---------|
-| `npm run export:ocr` | PDF → OCR package (named zip) |
-| `npm run upload:ocr` | Upload zip + update `manifest.json` |
+| `npm run export:ocr` | **New book:** PDF → OCR + reflow + zip (`--zip --upload`) |
+| `npm run reflow:ocr` | **Existing package:** reflow + rezip + upload (`--upload`) |
+| `npm run upload:ocr` | Upload zip only (no OCR/reflow) |
 | `npm run assign:ocr` | Assign book to volunteer (`in_review`) |
 | `npm run complete:ocr` | Mark corrected / published |
 | `npm run publish:epub:ocr` | Corrected OCR → EPUB → Supabase |
+| `npm run sync:books-config` | Write `books-landing/config.json` from `.env` |
 
 ---
 
