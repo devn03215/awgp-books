@@ -19,6 +19,21 @@
       "completed_at": null
     },
     {
+      "id": "03b9d5b8-2811-40e7-910d-03a80a8e15d8",
+      "code": "GUJR0441_GAYATRINI_PANCHVIDHI_DAINIK_SADHANA_XXYYYY",
+      "title": "GUJR0441 GAYATRINI PANCHVIDHI DAINIK SADHANA XXYYYY",
+      "language": "gujarati",
+      "pages": 33,
+      "status": "needs_review",
+      "zip_name": "GUJR0441-gayatrini-panchvidhi-dainik-sadhana-xxyyyy.zip",
+      "storage_path": "gujarati/GUJR0441-gayatrini-panchvidhi-dainik-sadhana-xxyyyy.zip",
+      "download_url": "https://xcgweboulqmijwtyaitw.supabase.co/storage/v1/object/public/books-ocr-review/gujarati/GUJR0441-gayatrini-panchvidhi-dainik-sadhana-xxyyyy.zip",
+      "updated_at": "2026-06-11",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
       "id": "003ba5eb-87d2-4433-a28c-8d9133b5f14a",
       "code": "GUJR0964_PAVITRA_JIVAN_RE2010",
       "title": "GUJR0964 PAVITRA JIVAN RE2010",
