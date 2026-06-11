@@ -13,9 +13,10 @@
       --card: #fff;
       --accent: #ff6b35;
       --ok: #248a3d;
+      --border: rgba(128,128,128,.35);
     }
     @media (prefers-color-scheme: dark) {
-      :root { --fg: #f5f5f7; --muted: #a1a1a6; --bg: #0d0d0f; --card: #1c1c1e; }
+      :root { --fg: #f5f5f7; --muted: #a1a1a6; --bg: #0d0d0f; --card: #1c1c1e; --border: rgba(128,128,128,.4); }
     }
     * { box-sizing: border-box; }
     body {
@@ -70,9 +71,19 @@
       font-size: 14px;
       padding: 10px 16px;
       border-radius: 999px;
+      border: none;
+      cursor: pointer;
       background: var(--accent);
       color: #fff !important;
       white-space: nowrap;
+    }
+    .btn:disabled { opacity: .55; cursor: not-allowed; }
+    .btn-secondary {
+      background: transparent;
+      color: var(--fg) !important;
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      font-size: 13px;
     }
     .status {
       display: inline-block;
@@ -83,8 +94,63 @@
       background: rgba(255,107,53,.15);
       color: var(--accent);
     }
-    .status.published { background: rgba(36,138,61,.15); color: var(--ok); }
+    .status.in_review { background: rgba(10,132,255,.15); color: #0a84ff; }
+    .status.corrected { background: rgba(36,138,61,.15); color: var(--ok); }
     .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; color: var(--muted); }
+    .pick-form { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; max-width: 280px; }
+    .pick-form input {
+      flex: 1 1 140px;
+      min-width: 0;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--fg);
+      font-size: 14px;
+    }
+    .picked-name { font-weight: 600; }
+    .pick-msg { font-size: 12px; margin-top: 6px; }
+    .pick-msg.error { color: #c0392b; }
+    .pick-msg.ok { color: var(--ok); }
+    .help {
+      background: var(--card);
+      border-radius: 14px;
+      margin-top: 24px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+      overflow: hidden;
+    }
+    .help summary {
+      cursor: pointer;
+      font-weight: 600;
+      padding: 16px 20px;
+      list-style: none;
+    }
+    .help summary::-webkit-details-marker { display: none; }
+    .help summary::after {
+      content: ' ▾';
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .help[open] summary::after { content: ' ▴'; }
+    .help-body {
+      padding: 0 20px 20px;
+      border-top: 1px solid rgba(128,128,128,.15);
+    }
+    .help-body h3 {
+      font-size: 1rem;
+      margin: 18px 0 8px;
+    }
+    .help-body h3:first-child { margin-top: 16px; }
+    .help-body ol { margin: 0; padding-left: 20px; }
+    .help-body li { margin: 8px 0; }
+    .help-body a { color: #0a84ff; }
+    .help-note {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: rgba(10,132,255,.08);
+      font-size: 14px;
+    }
     footer { margin-top: 28px; text-align: center; font-size: 12px; color: var(--muted); }
     .error { color: #c0392b; }
     @media (max-width: 720px) {
@@ -114,14 +180,60 @@
     <section class="steps">
       <strong>How to help</strong>
       <ol>
+        <li>Pick a book with status <em>Needs review</em> — enter your name under <strong>Picked up by</strong> and click <strong>Save</strong> so others know you are working on it.</li>
         <li>Download the book zip (contains page images + <span class="mono">ocr-draft.txt</span>).</li>
         <li>Open images alongside the draft text and fix OCR mistakes.</li>
         <li>Keep page markers exactly: <span class="mono">===== PAGE N =====</span></li>
-        <li>Save your file as <span class="mono">ocr-corrected.txt</span> and send it back to the AWGP team.</li>
+        <li>Fix the text (see <strong>Help</strong> below for Gujarati / Hindi / Marathi — no install needed).</li>
+        <li>Save as <span class="mono">ocr-corrected.txt</span> and send it back to the AWGP team.</li>
       </ol>
     </section>
 
     <div id="content"><p class="lead">Loading…</p></div>
+
+    <details class="help" id="volunteer-help">
+      <summary>Help — how to fix Gujarati / Hindi / Marathi text (nothing to install)</summary>
+      <div class="help-body">
+        <p>You only need a web browser and the downloaded zip. No fonts or special software required.</p>
+
+        <h3>1. Open your files</h3>
+        <ol>
+          <li>Download a book zip from the table above and <strong>unzip</strong> it.</li>
+          <li>Open the <span class="mono">pages</span> folder — open a page image (e.g. <span class="mono">page_004.png</span>) and keep it visible.</li>
+          <li>Open <span class="mono">ocr-draft.txt</span> (double-click on computer; on phone use Notes or any text app).</li>
+        </ol>
+
+        <h3>2. Type Gujarati, Hindi, or Marathi online (free)</h3>
+        <ol>
+          <li>Open <a href="https://www.google.com/inputtools/try/" target="_blank" rel="noopener">Google Input Tools</a> in your browser.</li>
+          <li>Choose your language: <strong>Gujarati</strong> (ગુજરાતી), <strong>Hindi</strong> (हिन्दी), or <strong>Marathi</strong> (मराठी).</li>
+          <li>Click in the text box and type the word <strong>in English letters</strong> as you say it — e.g. <span class="mono">pavitra</span>, <span class="mono">gaayatri</span>.</li>
+          <li>When the correct script appears, <strong>select it → Copy</strong>.</li>
+          <li>Go back to <span class="mono">ocr-draft.txt</span>, find the wrong word, delete it, and <strong>Paste</strong>.</li>
+          <li>Check against the page image — the text should match the picture.</li>
+        </ol>
+        <p class="help-note">
+          Gujarati menu version (same tool):
+          <a href="https://www.google.com/intl/gu/inputtools/try/" target="_blank" rel="noopener">google.com/intl/gu/inputtools/try</a>
+        </p>
+
+        <h3>3. Save and send back</h3>
+        <ol>
+          <li>Keep every page marker exactly as-is: <span class="mono">===== PAGE 1 =====</span></li>
+          <li>When finished, save as <span class="mono">ocr-corrected.txt</span>.</li>
+          <li>Send <span class="mono">ocr-corrected.txt</span> back to the AWGP team (email or WhatsApp — as they told you).</li>
+        </ol>
+
+        <h3>Optional: Google Docs</h3>
+        <ol>
+          <li>Go to <a href="https://docs.google.com" target="_blank" rel="noopener">docs.google.com</a> (free Google account).</li>
+          <li>Paste all of <span class="mono">ocr-draft.txt</span> into a new document.</li>
+          <li>Use Google Input Tools (step 2) in another tab to copy corrected words into the document.</li>
+          <li><strong>File → Download → Plain text (.txt)</strong>, rename to <span class="mono">ocr-corrected.txt</span>.</li>
+        </ol>
+      </div>
+    </details>
+
     <footer>All World Gayatri Pariwar · AWGP Books</footer>
   </div>
   <script>
@@ -133,10 +245,61 @@
         published: 'Published'
       };
 
+      var config = null;
+      var picksByBook = {};
+
       function esc(s) {
         return String(s || '').replace(/[&<>"']/g, function (c) {
           return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
         });
+      }
+
+      function displayTitle(b) {
+        var title = (b.title || '').trim();
+        if (!title) return '—';
+        var code = (b.code || '').trim();
+        var shortCode = code.match(/^([A-Za-z]+\d+)/);
+        if (shortCode) {
+          var prefix = new RegExp('^' + shortCode[1].replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[\\s_]+', 'i');
+          title = title.replace(prefix, '').trim();
+        }
+        return title || (b.title || '').trim();
+      }
+
+      function formatDate(iso) {
+        if (!iso) return '';
+        try {
+          return iso.slice(0, 10);
+        } catch (e) {
+          return iso;
+        }
+      }
+
+      function effectiveStatus(b, pick) {
+        if (b.status === 'published' || b.status === 'corrected') return b.status;
+        if (pick || b.assigned_to) return 'in_review';
+        return b.status || 'needs_review';
+      }
+
+      function pickCellHtml(b, pick) {
+        var status = effectiveStatus(b, pick);
+        var done = status === 'corrected' || status === 'published';
+
+        if (pick) {
+          return '<span class="picked-name">' + esc(pick.picked_up_by) + '</span>' +
+            '<br><span class="mono">since ' + esc(formatDate(pick.picked_up_at)) + '</span>';
+        }
+        if (b.assigned_to && !pick) {
+          return '<span class="picked-name">' + esc(b.assigned_to) + '</span>' +
+            (b.claimed_at ? '<br><span class="mono">since ' + esc(b.claimed_at) + '</span>' : '');
+        }
+        if (done) return '—';
+
+        return '<div class="pick-form" data-book-id="' + esc(b.id) + '">' +
+          '<input type="text" placeholder="Your name" maxlength="120" aria-label="Your name" />' +
+          '<button type="button" class="btn btn-secondary pick-save">Save</button>' +
+          '</div>' +
+          '<div class="pick-msg" hidden></div>';
       }
 
       function renderBooks(manifest) {
@@ -145,34 +308,138 @@
           return '<p class="lead">No books listed yet. An admin will add packages here.</p>';
         }
         var rows = books.map(function (b) {
-          var statusClass = b.status === 'published' ? 'status published' : 'status';
-          return '<tr>' +
-            '<td data-label="Code"><strong>' + esc(b.code || '—') + '</strong></td>' +
-            '<td data-label="Title">' + esc(b.title) + '<br><span class="mono">' + esc(b.zip_name) + '</span></td>' +
+          var pick = picksByBook[b.id];
+          var status = effectiveStatus(b, pick);
+          var statusClass = 'status';
+          if (status === 'published' || status === 'corrected') statusClass += ' corrected';
+          else if (status === 'in_review') statusClass += ' in_review';
+          return '<tr data-book-id="' + esc(b.id) + '">' +
+            '<td data-label="Title"><strong>' + esc(displayTitle(b)) + '</strong></td>' +
             '<td data-label="Language">' + esc(b.language) + '</td>' +
             '<td data-label="Pages">' + esc(String(b.pages || '—')) + '</td>' +
-            '<td data-label="Status"><span class="' + statusClass + '">' + esc(STATUS_LABEL[b.status] || b.status) + '</span></td>' +
+            '<td data-label="Status"><span class="status-badge ' + statusClass + '">' + esc(STATUS_LABEL[status] || status) + '</span></td>' +
+            '<td data-label="Picked up by" class="pick-cell">' + pickCellHtml(b, pick) + '</td>' +
             '<td data-label="Download"><a class="btn" href="' + esc(b.download_url) + '" download>Download zip</a></td>' +
             '</tr>';
         }).join('');
         return '<table><thead><tr>' +
-          '<th>Code</th><th>Title</th><th>Language</th><th>Pages</th><th>Status</th><th>Download</th>' +
+          '<th>Title</th><th>Language</th><th>Pages</th><th>Status</th><th>Picked up by</th><th>Download</th>' +
           '</tr></thead><tbody>' + rows + '</tbody></table>';
       }
 
-      fetch('manifest.json', { cache: 'no-store' })
-        .then(function (r) {
-          if (!r.ok) throw new Error('manifest.json not found');
-          return r.json();
-        })
+      function supabaseHeaders() {
+        return {
+          apikey: config.supabaseAnonKey,
+          Authorization: 'Bearer ' + config.supabaseAnonKey,
+          'Content-Type': 'application/json'
+        };
+      }
+
+      function fetchPicks() {
+        var url = config.supabaseUrl.replace(/\/$/, '') +
+          '/rest/v1/book_ocr_picks?select=book_id,picked_up_by,picked_up_at';
+        return fetch(url, { headers: supabaseHeaders(), cache: 'no-store' })
+          .then(function (r) {
+            if (!r.ok) throw new Error('Could not load picks (HTTP ' + r.status + ')');
+            return r.json();
+          })
+          .then(function (rows) {
+            picksByBook = {};
+            (rows || []).forEach(function (row) {
+              picksByBook[row.book_id] = row;
+            });
+          });
+      }
+
+      function savePick(bookId, name, btn) {
+        var trimmed = name.trim();
+        if (trimmed.length < 2) {
+          return Promise.reject(new Error('Please enter at least 2 characters.'));
+        }
+        btn.disabled = true;
+        var url = config.supabaseUrl.replace(/\/$/, '') + '/rest/v1/book_ocr_picks';
+        return fetch(url, {
+          method: 'POST',
+          headers: Object.assign({}, supabaseHeaders(), { Prefer: 'return=minimal' }),
+          body: JSON.stringify({ book_id: bookId, picked_up_by: trimmed })
+        }).then(function (r) {
+          if (r.status === 409 || r.status === 400) {
+            return fetchPicks().then(function () {
+              throw new Error('Someone else picked this book first. Refresh to see who.');
+            });
+          }
+          if (!r.ok) throw new Error('Save failed (HTTP ' + r.status + ')');
+          return fetchPicks();
+        }).finally(function () {
+          btn.disabled = false;
+        });
+      }
+
+      function bindPickHandlers(manifest) {
+        document.querySelectorAll('.pick-save').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var form = btn.closest('.pick-form');
+            var bookId = form.getAttribute('data-book-id');
+            var input = form.querySelector('input');
+            var msg = form.parentElement.querySelector('.pick-msg');
+            msg.hidden = false;
+            msg.className = 'pick-msg';
+            msg.textContent = 'Saving…';
+            savePick(bookId, input.value, btn)
+              .then(function () {
+                document.getElementById('content').innerHTML = renderBooks(manifest);
+                bindPickHandlers(manifest);
+                var row = document.querySelector('tr[data-book-id="' + bookId + '"]');
+                if (row) {
+                  var m = row.querySelector('.pick-msg') || document.createElement('div');
+                  if (!row.querySelector('.pick-msg')) {
+                    m.className = 'pick-msg ok';
+                    row.querySelector('.pick-cell').appendChild(m);
+                  }
+                  m.hidden = false;
+                  m.className = 'pick-msg ok';
+                  m.textContent = 'Saved — thanks!';
+                }
+              })
+              .catch(function (err) {
+                msg.className = 'pick-msg error';
+                msg.textContent = err.message || 'Could not save.';
+                if (picksByBook[bookId]) {
+                  document.getElementById('content').innerHTML = renderBooks(manifest);
+                  bindPickHandlers(manifest);
+                }
+              });
+          });
+        });
+      }
+
+      function loadAll() {
+        return Promise.all([
+          fetch('config.json', { cache: 'no-store' }).then(function (r) {
+            if (!r.ok) throw new Error('config.json missing — run: npm run sync:books-config');
+            return r.json();
+          }),
+          fetch('manifest.json', { cache: 'no-store' }).then(function (r) {
+            if (!r.ok) throw new Error('manifest.json not found');
+            return r.json();
+          })
+        ]).then(function (results) {
+          config = results[0];
+          var manifest = results[1];
+          return fetchPicks().then(function () { return manifest; });
+        });
+      }
+
+      loadAll()
         .then(function (manifest) {
           document.getElementById('page-title').textContent = manifest.title || 'AWGP Books — OCR Review';
           document.getElementById('page-desc').textContent = manifest.description || '';
           document.getElementById('content').innerHTML = renderBooks(manifest);
+          bindPickHandlers(manifest);
         })
         .catch(function (err) {
           document.getElementById('content').innerHTML =
-            '<p class="error">Could not load manifest.json — ' + esc(err.message) + '</p>';
+            '<p class="error">' + esc(err.message) + '</p>';
         });
     })();
   </script>

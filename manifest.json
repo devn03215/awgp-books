@@ -13,7 +13,55 @@
       "zip_name": "ENGP0810-determination-paves-the-way-to-success-xxyyyy.zip",
       "storage_path": "english/ENGP0810-determination-paves-the-way-to-success-xxyyyy.zip",
       "download_url": "https://xcgweboulqmijwtyaitw.supabase.co/storage/v1/object/public/books-ocr-review/english/ENGP0810-determination-paves-the-way-to-success-xxyyyy.zip",
-      "updated_at": "2026-06-10"
+      "updated_at": "2026-06-10",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "003ba5eb-87d2-4433-a28c-8d9133b5f14a",
+      "code": "GUJR0964_PAVITRA_JIVAN_RE2010",
+      "title": "GUJR0964 PAVITRA JIVAN RE2010",
+      "language": "gujarati",
+      "pages": 33,
+      "status": "needs_review",
+      "zip_name": "GUJR0964-pavitra-jivan-re2010.zip",
+      "storage_path": "gujarati/GUJR0964-pavitra-jivan-re2010.zip",
+      "download_url": "https://xcgweboulqmijwtyaitw.supabase.co/storage/v1/object/public/books-ocr-review/gujarati/GUJR0964-pavitra-jivan-re2010.zip",
+      "updated_at": "2026-06-11",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "0090bfc7-2e7f-4063-89f1-38f56b53d228",
+      "code": "HINP0293_GAYATRI_SHANKA_SAMADHAN_xxyyyy",
+      "title": "HINP0293 GAYATRI SHANKA SAMADHAN xxyyyy",
+      "language": "hindi",
+      "pages": 37,
+      "status": "needs_review",
+      "zip_name": "HINP0293-gayatri-shanka-samadhan-xxyyyy.zip",
+      "storage_path": "hindi/HINP0293-gayatri-shanka-samadhan-xxyyyy.zip",
+      "download_url": "https://xcgweboulqmijwtyaitw.supabase.co/storage/v1/object/public/books-ocr-review/hindi/HINP0293-gayatri-shanka-samadhan-xxyyyy.zip",
+      "updated_at": "2026-06-11",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "0251f80e-f1dc-4ac8-923d-3d97bd3749af",
+      "code": "MRTR0898_NAVASRUJANA_NIMITT_MAHAKALACHI_TAYARI_XX2010",
+      "title": "MRTR0898 NAVASRUJANA NIMITT MAHAKALACHI TAYARI XX2010",
+      "language": "marathi",
+      "pages": 37,
+      "status": "needs_review",
+      "zip_name": "MRTR0898-navasrujana-nimitt-mahakalachi-tayari-xx2010.zip",
+      "storage_path": "marathi/MRTR0898-navasrujana-nimitt-mahakalachi-tayari-xx2010.zip",
+      "download_url": "https://xcgweboulqmijwtyaitw.supabase.co/storage/v1/object/public/books-ocr-review/marathi/MRTR0898-navasrujana-nimitt-mahakalachi-tayari-xx2010.zip",
+      "updated_at": "2026-06-11",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
     }
   ]
 }
