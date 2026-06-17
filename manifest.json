@@ -39,14 +39,15 @@
       "title": "GUJR0964 PAVITRA JIVAN RE2010",
       "language": "gujarati",
       "pages": 33,
-      "status": "needs_review",
+      "status": "corrected",
       "zip_name": "GUJR0964-pavitra-jivan-re2010.zip",
       "storage_path": "gujarati/GUJR0964-pavitra-jivan-re2010.zip",
       "download_url": "https://xcgweboulqmijwtyaitw.supabase.co/storage/v1/object/public/books-ocr-review/gujarati/GUJR0964-pavitra-jivan-re2010.zip",
-      "updated_at": "2026-06-11",
+      "updated_at": "2026-06-17",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-06-17",
+      "corrected_url": "https://xcgweboulqmijwtyaitw.supabase.co/storage/v1/object/public/books-ocr-review/gujarati/003ba5eb-87d2-4433-a28c-8d9133b5f14a/ocr-corrected.txt"
     },
     {
       "id": "0090bfc7-2e7f-4063-89f1-38f56b53d228",

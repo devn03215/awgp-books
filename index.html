@@ -112,6 +112,28 @@
     .pick-msg { font-size: 12px; margin-top: 6px; }
     .pick-msg.error { color: #c0392b; }
     .pick-msg.ok { color: var(--ok); }
+    .upload-form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      max-width: 280px;
+    }
+    .upload-form input[type="text"],
+    .upload-form input[type="file"] {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--fg);
+      font-size: 13px;
+    }
+    .upload-form input[type="file"] { font-size: 12px; }
+    .submitted-badge {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ok);
+    }
     .help {
       background: var(--card);
       border-radius: 14px;
@@ -185,7 +207,8 @@
         <li>Open images alongside the draft text and fix OCR mistakes.</li>
         <li>Keep page markers exactly: <span class="mono">===== PAGE N =====</span></li>
         <li>Fix the text (see <strong>Help</strong> below for Gujarati / Hindi / Marathi — no install needed).</li>
-        <li>Save as <span class="mono">ocr-corrected.txt</span> and send it back to the AWGP team.</li>
+        <li>Save as <span class="mono">ocr-corrected.txt</span>.</li>
+        <li><strong>Upload</strong> your file on this page (column <em>Submit corrected</em>) — no email needed.</li>
       </ol>
     </section>
 
@@ -217,11 +240,11 @@
           <a href="https://www.google.com/intl/gu/inputtools/try/" target="_blank" rel="noopener">google.com/intl/gu/inputtools/try</a>
         </p>
 
-        <h3>3. Save and send back</h3>
+        <h3>3. Save and upload</h3>
         <ol>
           <li>Keep every page marker exactly as-is: <span class="mono">===== PAGE 1 =====</span></li>
           <li>When finished, save as <span class="mono">ocr-corrected.txt</span>.</li>
-          <li>Send <span class="mono">ocr-corrected.txt</span> back to the AWGP team (email or WhatsApp — as they told you).</li>
+          <li>On this page, under <strong>Submit corrected</strong>, enter your name, choose the file, and click <strong>Upload</strong>.</li>
         </ol>
 
         <h3>Optional: Google Docs</h3>
@@ -247,6 +270,7 @@
 
       var config = null;
       var picksByBook = {};
+      var submissionsByBook = {};
 
       function esc(s) {
         return String(s || '').replace(/[&<>"']/g, function (c) {
@@ -276,9 +300,35 @@
       }
 
       function effectiveStatus(b, pick) {
-        if (b.status === 'published' || b.status === 'corrected') return b.status;
+        if (b.status === 'published') return 'published';
+        if (submissionsByBook[b.id] || b.status === 'corrected') return 'corrected';
         if (pick || b.assigned_to) return 'in_review';
         return b.status || 'needs_review';
+      }
+
+      function submitCellHtml(b, pick) {
+        var submission = submissionsByBook[b.id];
+        if (submission) {
+          return '<span class="submitted-badge">Submitted ✓</span><br>' +
+            '<span class="mono">' + esc(submission.submitted_by) + '</span>' +
+            '<br><span class="mono">' + esc(formatDate(submission.submitted_at)) + '</span>';
+        }
+        if (b.status === 'published') return '—';
+
+        var defaultName = '';
+        if (pick && pick.picked_up_by) defaultName = pick.picked_up_by;
+        else if (b.assigned_to) defaultName = b.assigned_to;
+
+        if (!config.submitOcrCorrectedUrl) {
+          return '<span class="mono">Upload not configured</span>';
+        }
+
+        return '<div class="upload-form" data-book-id="' + esc(b.id) + '">' +
+          '<input type="text" class="upload-name" placeholder="Your name" maxlength="120" value="' + esc(defaultName) + '" aria-label="Your name for upload" />' +
+          '<input type="file" class="upload-file" accept=".txt,text/plain" aria-label="ocr-corrected.txt" />' +
+          '<button type="button" class="btn btn-secondary upload-btn">Upload</button>' +
+          '</div>' +
+          '<div class="pick-msg upload-msg" hidden></div>';
       }
 
       function pickCellHtml(b, pick) {
@@ -320,10 +370,11 @@
             '<td data-label="Status"><span class="status-badge ' + statusClass + '">' + esc(STATUS_LABEL[status] || status) + '</span></td>' +
             '<td data-label="Picked up by" class="pick-cell">' + pickCellHtml(b, pick) + '</td>' +
             '<td data-label="Download"><a class="btn" href="' + esc(b.download_url) + '" download>Download zip</a></td>' +
+            '<td data-label="Submit corrected" class="submit-cell">' + submitCellHtml(b, pick) + '</td>' +
             '</tr>';
         }).join('');
         return '<table><thead><tr>' +
-          '<th>Title</th><th>Language</th><th>Pages</th><th>Status</th><th>Picked up by</th><th>Download</th>' +
+          '<th>Title</th><th>Language</th><th>Pages</th><th>Status</th><th>Picked up by</th><th>Download</th><th>Submit corrected</th>' +
           '</tr></thead><tbody>' + rows + '</tbody></table>';
       }
 
@@ -333,6 +384,96 @@
           Authorization: 'Bearer ' + config.supabaseAnonKey,
           'Content-Type': 'application/json'
         };
+      }
+
+      function fetchSubmissions() {
+        var url = config.supabaseUrl.replace(/\/$/, '') +
+          '/rest/v1/book_ocr_submissions?select=book_id,submitted_by,submitted_at,storage_path';
+        return fetch(url, { headers: supabaseHeaders(), cache: 'no-store' })
+          .then(function (r) {
+            if (r.status === 404 || r.status === 400) return [];
+            if (!r.ok) throw new Error('Could not load submissions (HTTP ' + r.status + ')');
+            return r.json();
+          })
+          .then(function (rows) {
+            submissionsByBook = {};
+            (rows || []).forEach(function (row) {
+              submissionsByBook[row.book_id] = row;
+            });
+          })
+          .catch(function () {
+            submissionsByBook = {};
+          });
+      }
+
+      function uploadCorrected(bookId, name, file, btn) {
+        var trimmed = name.trim();
+        if (trimmed.length < 2) {
+          return Promise.reject(new Error('Please enter your name (at least 2 characters).'));
+        }
+        if (!file) {
+          return Promise.reject(new Error('Choose your ocr-corrected.txt file.'));
+        }
+        if (!config.submitOcrCorrectedUrl) {
+          return Promise.reject(new Error('Upload URL not configured.'));
+        }
+        btn.disabled = true;
+        var form = new FormData();
+        form.append('book_id', bookId);
+        form.append('submitted_by', trimmed);
+        form.append('file', file, file.name || 'ocr-corrected.txt');
+        return fetch(config.submitOcrCorrectedUrl, {
+          method: 'POST',
+          headers: {
+            apikey: config.supabaseAnonKey,
+            Authorization: 'Bearer ' + config.supabaseAnonKey
+          },
+          body: form
+        }).then(function (r) {
+          return r.json().then(function (body) {
+            if (!r.ok) throw new Error(body.error || ('Upload failed (HTTP ' + r.status + ')'));
+            return body;
+          });
+        }).then(function () {
+          return fetchSubmissions();
+        }).finally(function () {
+          btn.disabled = false;
+        });
+      }
+
+      function bindUploadHandlers(manifest) {
+        document.querySelectorAll('.upload-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var form = btn.closest('.upload-form');
+            var bookId = form.getAttribute('data-book-id');
+            var nameInput = form.querySelector('.upload-name');
+            var fileInput = form.querySelector('.upload-file');
+            var msg = form.parentElement.querySelector('.upload-msg');
+            msg.hidden = false;
+            msg.className = 'pick-msg upload-msg';
+            msg.textContent = 'Uploading…';
+            uploadCorrected(bookId, nameInput.value, fileInput.files[0], btn)
+              .then(function () {
+                document.getElementById('content').innerHTML = renderBooks(manifest);
+                bindPickHandlers(manifest);
+                bindUploadHandlers(manifest);
+                bindUploadHandlers(manifest);
+                var row = document.querySelector('tr[data-book-id="' + bookId + '"]');
+                if (row) {
+                  var m = row.querySelector('.upload-msg');
+                  if (m) {
+                    m.hidden = false;
+                    m.className = 'pick-msg ok upload-msg';
+                    m.textContent = 'Uploaded — thank you!';
+                  }
+                }
+              })
+              .catch(function (err) {
+                msg.className = 'pick-msg error upload-msg';
+                msg.textContent = err.message || 'Upload failed.';
+              });
+          });
+        });
       }
 
       function fetchPicks() {
@@ -389,6 +530,7 @@
               .then(function () {
                 document.getElementById('content').innerHTML = renderBooks(manifest);
                 bindPickHandlers(manifest);
+                bindUploadHandlers(manifest);
                 var row = document.querySelector('tr[data-book-id="' + bookId + '"]');
                 if (row) {
                   var m = row.querySelector('.pick-msg') || document.createElement('div');
@@ -426,7 +568,9 @@
         ]).then(function (results) {
           config = results[0];
           var manifest = results[1];
-          return fetchPicks().then(function () { return manifest; });
+          return fetchPicks()
+            .then(function () { return fetchSubmissions(); })
+            .then(function () { return manifest; });
         });
       }
 
@@ -436,6 +580,7 @@
           document.getElementById('page-desc').textContent = manifest.description || '';
           document.getElementById('content').innerHTML = renderBooks(manifest);
           bindPickHandlers(manifest);
+          bindUploadHandlers(manifest);
         })
         .catch(function (err) {
           document.getElementById('content').innerHTML =

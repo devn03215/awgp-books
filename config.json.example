@@ -1,0 +1,5 @@
+{
+  "supabaseUrl": "https://your-project.supabase.co",
+  "supabaseAnonKey": "your-anon-key",
+  "submitOcrCorrectedUrl": "https://your-project.supabase.co/functions/v1/submit_ocr_corrected"
+}

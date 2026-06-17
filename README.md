@@ -159,7 +159,28 @@ books-ocr-review/
   hindi/...
 ```
 
-Public read on the bucket; uploads use service role from admin scripts.
+Public read on the bucket; zip uploads use service role from admin scripts.
+
+Volunteer **ocr-corrected.txt** uploads (one-time setup):
+
+```
+books-ocr-review/
+  gujarati/{book-uuid}/ocr-corrected.txt   ← volunteer upload
+  gujarati/GUJR0964-pavitra-jivan-re2010.zip
+```
+
+1. Apply migration: `npx supabase db push` (creates `book_ocr_submissions` table)
+2. Deploy Edge Function: `npm run deploy:submit-ocr`
+3. Refresh landing config: `npm run sync:books-config`
+4. Copy `books-landing/` to [awgp-books](https://github.com/devn03215/awgp-books) and push (include `index.html`, `config.json`, `manifest.json`)
+
+Admin — pull corrected file into local pipeline:
+
+```powershell
+npm run fetch:ocr:corrected -- 003ba5eb-87d2-4433-a28c-8d9133b5f14a
+npm run sync:ocr:manifest
+npm run publish:epub:ocr -- 003ba5eb-87d2-4433-a28c-8d9133b5f14a
+```
 
 ---
 
@@ -171,9 +192,12 @@ Public read on the bucket; uploads use service role from admin scripts.
 | `npm run reflow:ocr` | **Existing package:** reflow + rezip + upload (`--upload`) |
 | `npm run upload:ocr` | Upload zip only (no OCR/reflow) |
 | `npm run assign:ocr` | Assign book to volunteer (`in_review`) |
-| `npm run complete:ocr` | Mark corrected / published |
+| `npm run complete:ocr` | Mark corrected / published (manual) |
+| `npm run fetch:ocr:corrected` | Download volunteer `ocr-corrected.txt` to `.epub-work/` |
+| `npm run sync:ocr:manifest` | Update manifest from `book_ocr_submissions` |
 | `npm run publish:epub:ocr` | Corrected OCR → EPUB → Supabase |
 | `npm run sync:books-config` | Write `books-landing/config.json` from `.env` |
+| `npm run deploy:submit-ocr` | Deploy volunteer upload Edge Function |
 
 ---
 
@@ -192,7 +216,7 @@ Live URL would be: https://devn03215.github.io/awgp-books/
 ```powershell
 cd c:\dev\git\awgp-books
 Copy-Item c:\dev\git\awgp-mobile\books-landing\* . -Force
-git add manifest.json index.html README.md .nojekyll
+git add manifest.json index.html config.json README.md .nojekyll
 
 $env:GIT_AUTHOR_NAME="devn03215"
 $env:GIT_AUTHOR_EMAIL="devn03215@gmail.com"
