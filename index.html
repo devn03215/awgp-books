@@ -175,6 +175,52 @@
     }
     footer { margin-top: 28px; text-align: center; font-size: 12px; color: var(--muted); }
     .error { color: #c0392b; }
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      background: var(--card);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+    }
+    .filter-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+    .filter-btn {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg);
+      font-family: inherit;
+    }
+    .filter-btn:hover { border-color: var(--accent); }
+    .filter-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .filter-btn .filter-n { font-weight: 500; opacity: .85; }
+    .filter-summary {
+      flex: 1 1 100%;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    @media (min-width: 640px) {
+      .filter-summary { flex: 1 1 auto; text-align: right; margin-top: 0; }
+    }
     @media (max-width: 720px) {
       table, thead, tbody, th, td, tr { display: block; }
       thead { display: none; }
@@ -212,6 +258,7 @@
       </ol>
     </section>
 
+    <div id="filters" hidden></div>
     <div id="content"><p class="lead">Loading…</p></div>
 
     <details class="help" id="volunteer-help">
@@ -269,8 +316,10 @@
       };
 
       var config = null;
+      var currentManifest = null;
       var picksByBook = {};
       var submissionsByBook = {};
+      var languageFilter = sessionStorage.getItem('awgp-books-lang-filter') || 'all';
 
       function esc(s) {
         return String(s || '').replace(/[&<>"']/g, function (c) {
@@ -304,6 +353,78 @@
         if (submissionsByBook[b.id] || b.status === 'corrected') return 'corrected';
         if (pick || b.assigned_to) return 'in_review';
         return b.status || 'needs_review';
+      }
+
+      function languageLabel(lang) {
+        var labels = {
+          english: 'English',
+          gujarati: 'Gujarati',
+          hindi: 'Hindi',
+          marathi: 'Marathi'
+        };
+        var key = String(lang || '').toLowerCase();
+        return labels[key] || (key ? key.charAt(0).toUpperCase() + key.slice(1) : 'Unknown');
+      }
+
+      function uniqueLanguages(books) {
+        var seen = {};
+        var out = [];
+        (books || []).forEach(function (b) {
+          var key = String(b.language || '').toLowerCase();
+          if (key && !seen[key]) {
+            seen[key] = true;
+            out.push(key);
+          }
+        });
+        return out.sort();
+      }
+
+      function filteredBooks(books) {
+        if (languageFilter === 'all') return books || [];
+        return (books || []).filter(function (b) {
+          return String(b.language || '').toLowerCase() === languageFilter;
+        });
+      }
+
+      function renderFilters(manifest) {
+        var books = manifest.books || [];
+        var langs = uniqueLanguages(books);
+        var visible = filteredBooks(books);
+        var chips = '<button type="button" class="filter-btn' + (languageFilter === 'all' ? ' active' : '') +
+          '" data-lang="all">All <span class="filter-n">(' + books.length + ')</span></button>';
+        langs.forEach(function (lang) {
+          var count = books.filter(function (b) {
+            return String(b.language || '').toLowerCase() === lang;
+          }).length;
+          chips += '<button type="button" class="filter-btn' + (languageFilter === lang ? ' active' : '') +
+            '" data-lang="' + esc(lang) + '">' + esc(languageLabel(lang)) +
+            ' <span class="filter-n">(' + count + ')</span></button>';
+        });
+        return '<div class="filter-bar">' +
+          '<span class="filter-label">Language</span>' + chips +
+          '<span class="filter-summary">Showing ' + visible.length + ' of ' + books.length + ' books</span>' +
+          '</div>';
+      }
+
+      function refreshContent() {
+        if (!currentManifest) return;
+        var filtersEl = document.getElementById('filters');
+        filtersEl.innerHTML = renderFilters(currentManifest);
+        filtersEl.hidden = !(currentManifest.books || []).length;
+        document.getElementById('content').innerHTML = renderBooks(currentManifest);
+        bindFilterHandlers();
+        bindPickHandlers(currentManifest);
+        bindUploadHandlers(currentManifest);
+      }
+
+      function bindFilterHandlers() {
+        document.querySelectorAll('.filter-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            languageFilter = btn.getAttribute('data-lang') || 'all';
+            sessionStorage.setItem('awgp-books-lang-filter', languageFilter);
+            refreshContent();
+          });
+        });
       }
 
       function submitCellHtml(b, pick) {
@@ -353,9 +474,13 @@
       }
 
       function renderBooks(manifest) {
-        var books = manifest.books || [];
-        if (!books.length) {
+        var allBooks = manifest.books || [];
+        var books = filteredBooks(allBooks);
+        if (!allBooks.length) {
           return '<p class="lead">No books listed yet. An admin will add packages here.</p>';
+        }
+        if (!books.length) {
+          return '<p class="lead">No books match this language filter. Choose <strong>All</strong> or another language above.</p>';
         }
         var rows = books.map(function (b) {
           var pick = picksByBook[b.id];
@@ -454,10 +579,7 @@
             msg.textContent = 'Uploading…';
             uploadCorrected(bookId, nameInput.value, fileInput.files[0], btn)
               .then(function () {
-                document.getElementById('content').innerHTML = renderBooks(manifest);
-                bindPickHandlers(manifest);
-                bindUploadHandlers(manifest);
-                bindUploadHandlers(manifest);
+                refreshContent();
                 var row = document.querySelector('tr[data-book-id="' + bookId + '"]');
                 if (row) {
                   var m = row.querySelector('.upload-msg');
@@ -528,9 +650,7 @@
             msg.textContent = 'Saving…';
             savePick(bookId, input.value, btn)
               .then(function () {
-                document.getElementById('content').innerHTML = renderBooks(manifest);
-                bindPickHandlers(manifest);
-                bindUploadHandlers(manifest);
+                refreshContent();
                 var row = document.querySelector('tr[data-book-id="' + bookId + '"]');
                 if (row) {
                   var m = row.querySelector('.pick-msg') || document.createElement('div');
@@ -547,8 +667,7 @@
                 msg.className = 'pick-msg error';
                 msg.textContent = err.message || 'Could not save.';
                 if (picksByBook[bookId]) {
-                  document.getElementById('content').innerHTML = renderBooks(manifest);
-                  bindPickHandlers(manifest);
+                  refreshContent();
                 }
               });
           });
@@ -576,11 +695,10 @@
 
       loadAll()
         .then(function (manifest) {
+          currentManifest = manifest;
           document.getElementById('page-title').textContent = manifest.title || 'AWGP Books — OCR Review';
           document.getElementById('page-desc').textContent = manifest.description || '';
-          document.getElementById('content').innerHTML = renderBooks(manifest);
-          bindPickHandlers(manifest);
-          bindUploadHandlers(manifest);
+          refreshContent();
         })
         .catch(function (err) {
           document.getElementById('content').innerHTML =
