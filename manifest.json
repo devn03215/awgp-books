@@ -4,6 +4,21 @@
   "storage_bucket": "books-ocr-review",
   "books": [
     {
+      "id": "f6be9513-47bb-42ec-b8ae-44028ce31e14",
+      "code": "ARCHIVE_super-science-of-gayatri-pandit-shriram-sharma-acharya",
+      "title": "Super Science Of Gayatri | How to Do Gayatri Mantra Jap & Sadhana by Pandit Shriram Sharma Acharya",
+      "language": "english",
+      "pages": 177,
+      "status": "needs_review",
+      "zip_name": "ARCHIVE_SUPER-SCIENCE-OF-super-science-of-gayatri-how-to-do-gayatri-mantra-jap-sadhana-by-pandit-.zip",
+      "storage_path": "english/ARCHIVE_SUPER-SCIENCE-OF-super-science-of-gayatri-how-to-do-gayatri-mantra-jap-sadhana-by-pandit-.zip",
+      "download_url": "https://xcgweboulqmijwtyaitw.supabase.co/storage/v1/object/public/books-ocr-review/english/ARCHIVE_SUPER-SCIENCE-OF-super-science-of-gayatri-how-to-do-gayatri-mantra-jap-sadhana-by-pandit-.zip",
+      "updated_at": "2026-06-30",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
       "id": "01ba2961-be01-4d4c-ad88-330cdeadbed9",
       "code": "ENGP0810_DETERMINATION_PAVES_THE_WAY_TO_SUCCESS_xxyyyy",
       "title": "ENGP0810 DETERMINATION PAVES THE WAY TO SUCCESS xxyyyy",
