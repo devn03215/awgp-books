@@ -12,11 +12,115 @@
       "status": "needs_review",
       "zip_name": "ARCHIVE_SUPER-SCIENCE-OF-super-science-of-gayatri-how-to-do-gayatri-mantra-jap-sadhana-by-pandit-.zip",
       "storage_path": "english/ARCHIVE_SUPER-SCIENCE-OF-super-science-of-gayatri-how-to-do-gayatri-mantra-jap-sadhana-by-pandit-.zip",
-      "download_url": "https://xcgweboulqmijwtyaitw.supabase.co/storage/v1/object/public/books-ocr-review/english/ARCHIVE_SUPER-SCIENCE-OF-super-science-of-gayatri-how-to-do-gayatri-mantra-jap-sadhana-by-pandit-.zip",
-      "updated_at": "2026-06-30",
+      "download_url": "https://xcgweboulqmijwtyaitw.supabase.co/storage/v1/object/public/books-ocr-review/english/ARCHIVE_SUPER-SCIENCE-OF-super-science-of-gayatri-how-to-do-gayatri-mantra-jap-sadhana-by-pandit-.zip?v=2026-07-01-14-56-36",
+      "updated_at": "2026-07-01",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": null,
+      "has_images": true,
+      "image_guidance_summary": "This sample book contains diagrams, tables, and Sanskrit shlokas (pp. 42–51, 103–111, 148, 165 — eng+san OCR). Fix normal text pages as usual. On special pages below, follow the per-page notes.",
+      "image_page_hints": [
+        {
+          "page": 16,
+          "hint": "Fix the body text above the chart only. Skip the table rows at the bottom."
+        },
+        {
+          "page": 17,
+          "hint": "Skip this page — body diagram and table are handled by the team."
+        },
+        {
+          "page": 18,
+          "hint": "Fix the closing paragraph after the chart only. Skip table rows 19–24."
+        },
+        {
+          "page": 42,
+          "hint": "Fix English intro prose. Sanskrit shlokas are in Devanagari (eng+san OCR) — correct against page_042.png if you read Sanskrit."
+        },
+        {
+          "page": 43,
+          "hint": "Fix English commentary. Correct Devanagari shlokas and citations against page_043.png where possible."
+        },
+        {
+          "page": 44,
+          "hint": "Same as page 43 — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 45,
+          "hint": "Same as page 43 — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 46,
+          "hint": "Same as page 43 — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 47,
+          "hint": "Same as page 43 — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 48,
+          "hint": "Same as page 43 — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 49,
+          "hint": "Same as page 43 — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 50,
+          "hint": "Same as page 43 — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 51,
+          "hint": "Same as page 43 — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 103,
+          "hint": "Gayatri Geeta section — fix English commentary; correct Sanskrit shlokas against page_103.png."
+        },
+        {
+          "page": 104,
+          "hint": "Gayatri Geeta — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 105,
+          "hint": "Gayatri Geeta — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 106,
+          "hint": "Gayatri Geeta — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 107,
+          "hint": "Gayatri Geeta — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 108,
+          "hint": "Gayatri Geeta — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 109,
+          "hint": "Gayatri Geeta — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 110,
+          "hint": "Gayatri Geeta — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 111,
+          "hint": "Gayatri Geeta — English prose + Sanskrit shloka correction against the image."
+        },
+        {
+          "page": 125,
+          "hint": "Chakra diagram page — skip label garbage; optional light fix to the intro sentence."
+        },
+        {
+          "page": 148,
+          "hint": "Gayatri Tantra — fix English; correct Sanskrit shlokas against page_148.png."
+        },
+        {
+          "page": 165,
+          "hint": "Sanskrit shloka page — fix English; correct Devanagari against page_165.png."
+        }
+      ]
     },
     {
       "id": "01ba2961-be01-4d4c-ad88-330cdeadbed9",
@@ -73,8 +177,8 @@
       "status": "needs_review",
       "zip_name": "HINP0293-gayatri-shanka-samadhan-xxyyyy.zip",
       "storage_path": "hindi/HINP0293-gayatri-shanka-samadhan-xxyyyy.zip",
-      "download_url": "https://xcgweboulqmijwtyaitw.supabase.co/storage/v1/object/public/books-ocr-review/hindi/HINP0293-gayatri-shanka-samadhan-xxyyyy.zip",
-      "updated_at": "2026-06-11",
+      "download_url": "https://xcgweboulqmijwtyaitw.supabase.co/storage/v1/object/public/books-ocr-review/hindi/HINP0293-gayatri-shanka-samadhan-xxyyyy.zip?v=2026-07-06-21-04-52",
+      "updated_at": "2026-07-06",
       "assigned_to": null,
       "claimed_at": null,
       "completed_at": null

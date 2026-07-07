@@ -221,6 +221,32 @@
     @media (min-width: 640px) {
       .filter-summary { flex: 1 1 auto; text-align: right; margin-top: 0; }
     }
+    .badge-images {
+      display: inline-block;
+      margin-left: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(10,132,255,.15);
+      color: #0a84ff;
+      vertical-align: middle;
+    }
+    .image-hints {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--fg);
+    }
+    .image-hints summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: #0a84ff;
+    }
+    .image-hints p { margin: 8px 0; color: var(--muted); }
+    .image-hints ul { margin: 0; padding-left: 18px; }
+    .image-hints li { margin: 6px 0; }
     @media (max-width: 720px) {
       table, thead, tbody, th, td, tr { display: block; }
       thead { display: none; }
@@ -473,6 +499,21 @@
           '<div class="pick-msg" hidden></div>';
       }
 
+      function imageHintsHtml(b) {
+        if (!b.has_images) return '';
+        var intro = b.image_guidance_summary ||
+          'This book contains diagrams or tables. Fix normal text pages as usual. On the pages listed below, focus on prose only.';
+        var pages = b.image_page_hints || [];
+        var list = pages.map(function (h) {
+          return '<li><span class="mono">Page ' + esc(String(h.page)) + '</span> — ' + esc(h.hint) + '</li>';
+        }).join('');
+        return '<details class="image-hints">' +
+          '<summary>Illustration &amp; table pages — read before correcting</summary>' +
+          '<p>' + esc(intro) + '</p>' +
+          (list ? '<ul>' + list + '</ul>' : '') +
+          '</details>';
+      }
+
       function renderBooks(manifest) {
         var allBooks = manifest.books || [];
         var books = filteredBooks(allBooks);
@@ -489,7 +530,9 @@
           if (status === 'published' || status === 'corrected') statusClass += ' corrected';
           else if (status === 'in_review') statusClass += ' in_review';
           return '<tr data-book-id="' + esc(b.id) + '">' +
-            '<td data-label="Title"><strong>' + esc(displayTitle(b)) + '</strong></td>' +
+            '<td data-label="Title"><strong>' + esc(displayTitle(b)) + '</strong>' +
+            (b.has_images ? ' <span class="badge-images">Has illustrations</span>' : '') +
+            imageHintsHtml(b) + '</td>' +
             '<td data-label="Language">' + esc(b.language) + '</td>' +
             '<td data-label="Pages">' + esc(String(b.pages || '—')) + '</td>' +
             '<td data-label="Status"><span class="status-badge ' + statusClass + '">' + esc(STATUS_LABEL[status] || status) + '</span></td>' +
