@@ -123,6 +123,21 @@
       ]
     },
     {
+      "id": "cb39ad76-e38c-4ad9-948f-c2628eb2e8e4",
+      "code": "AWGP_deep_yagya/v1",
+      "title": "Deep Yagya",
+      "language": "english",
+      "pages": 40,
+      "status": "needs_review",
+      "zip_name": "AWGP_DEEP_YAGYA-V1-deep-yagya.zip",
+      "storage_path": "english/AWGP_DEEP_YAGYA-V1-deep-yagya.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/english/AWGP_DEEP_YAGYA-V1-deep-yagya.zip?v=2026-07-08-15-36-34",
+      "updated_at": "2026-07-08",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
       "id": "01ba2961-be01-4d4c-ad88-330cdeadbed9",
       "code": "ENGP0810_DETERMINATION_PAVES_THE_WAY_TO_SUCCESS_xxyyyy",
       "title": "ENGP0810 DETERMINATION PAVES THE WAY TO SUCCESS xxyyyy",
