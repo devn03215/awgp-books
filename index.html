@@ -48,19 +48,29 @@
     }
     .steps ol { margin: 0; padding-left: 20px; }
     .steps li { margin: 6px 0; }
+    .table-scroll {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      border-radius: 14px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+      background: var(--card);
+    }
     table {
       width: 100%;
+      min-width: 820px;
       border-collapse: collapse;
       background: var(--card);
-      border-radius: 14px;
-      overflow: hidden;
-      box-shadow: 0 2px 16px rgba(0,0,0,.06);
     }
     th, td {
       text-align: left;
       padding: 14px 16px;
       border-bottom: 1px solid rgba(128,128,128,.18);
       vertical-align: top;
+    }
+    td.submit-cell {
+      min-width: 260px;
+      max-width: 320px;
     }
     th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
     tr:last-child td { border-bottom: none; }
@@ -116,10 +126,10 @@
       display: flex;
       flex-direction: column;
       gap: 8px;
+      width: 100%;
       max-width: 280px;
     }
-    .upload-form input[type="text"],
-    .upload-form input[type="file"] {
+    .upload-form input[type="text"] {
       width: 100%;
       padding: 8px 10px;
       border-radius: 8px;
@@ -128,7 +138,43 @@
       color: var(--fg);
       font-size: 13px;
     }
-    .upload-form input[type="file"] { font-size: 12px; }
+    .upload-form input[type="file"] {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 6px 0;
+      border: none;
+      background: transparent;
+      color: var(--fg);
+      font-size: 12px;
+    }
+    .upload-file-label {
+      display: block;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      background: var(--bg);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .upload-file-label:hover { border-color: var(--accent); color: var(--fg); }
+    .upload-form input[type="file"].upload-file-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
     .submitted-badge {
       font-size: 12px;
       font-weight: 600;
@@ -248,10 +294,22 @@
     .image-hints ul { margin: 0; padding-left: 18px; }
     .image-hints li { margin: 6px 0; }
     @media (max-width: 720px) {
+      .table-scroll {
+        overflow: visible;
+        box-shadow: none;
+        background: transparent;
+      }
+      table {
+        min-width: 0;
+        background: var(--card);
+        border-radius: 14px;
+        box-shadow: 0 2px 16px rgba(0,0,0,.06);
+      }
       table, thead, tbody, th, td, tr { display: block; }
       thead { display: none; }
       tr { border-bottom: 1px solid rgba(128,128,128,.18); padding: 12px 0; }
       td { border: none; padding: 4px 16px; }
+      td.submit-cell { min-width: 0; max-width: none; }
       td::before {
         content: attr(data-label);
         display: block;
@@ -260,6 +318,7 @@
         color: var(--muted);
         margin-bottom: 2px;
       }
+      .upload-form { max-width: none; }
     }
   </style>
 </head>
@@ -472,7 +531,10 @@
 
         return '<div class="upload-form" data-book-id="' + esc(b.id) + '">' +
           '<input type="text" class="upload-name" placeholder="Your name" maxlength="120" value="' + esc(defaultName) + '" aria-label="Your name for upload" />' +
-          '<input type="file" class="upload-file" accept=".txt,text/plain" aria-label="ocr-corrected.txt" />' +
+          '<label class="upload-file-label">' +
+          '<input type="file" class="upload-file upload-file-hidden" accept=".txt,text/plain" aria-label="ocr-corrected.txt" />' +
+          '<span class="upload-file-text">Choose ocr-corrected.txt</span>' +
+          '</label>' +
           '<button type="button" class="btn btn-secondary upload-btn">Upload</button>' +
           '</div>' +
           '<div class="pick-msg upload-msg" hidden></div>';
@@ -541,9 +603,9 @@
             '<td data-label="Submit corrected" class="submit-cell">' + submitCellHtml(b, pick) + '</td>' +
             '</tr>';
         }).join('');
-        return '<table><thead><tr>' +
+        return '<div class="table-scroll"><table><thead><tr>' +
           '<th>Title</th><th>Language</th><th>Pages</th><th>Status</th><th>Picked up by</th><th>Download</th><th>Submit corrected</th>' +
-          '</tr></thead><tbody>' + rows + '</tbody></table>';
+          '</tr></thead><tbody>' + rows + '</tbody></table></div>';
       }
 
       function supabaseHeaders() {
@@ -610,6 +672,16 @@
       }
 
       function bindUploadHandlers(manifest) {
+        document.querySelectorAll('.upload-form').forEach(function (form) {
+          var fileInput = form.querySelector('.upload-file');
+          var fileText = form.querySelector('.upload-file-text');
+          if (fileInput && fileText) {
+            fileInput.addEventListener('change', function () {
+              var name = fileInput.files && fileInput.files[0] && fileInput.files[0].name;
+              fileText.textContent = name || 'Choose ocr-corrected.txt';
+            });
+          }
+        });
         document.querySelectorAll('.upload-btn').forEach(function (btn) {
           btn.addEventListener('click', function () {
             var form = btn.closest('.upload-form');
