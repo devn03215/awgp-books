@@ -27,7 +27,7 @@
       color: var(--fg);
       line-height: 1.5;
     }
-    .wrap { max-width: 920px; margin: 0 auto; }
+    .wrap { max-width: 1140px; width: 100%; margin: 0 auto; }
     header { margin-bottom: 28px; }
     .badge {
       font-size: 12px;
@@ -52,25 +52,37 @@
       width: 100%;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
-      border-radius: 14px;
-      box-shadow: 0 2px 16px rgba(0,0,0,.06);
-      background: var(--card);
+      margin-bottom: 4px;
     }
     table {
       width: 100%;
-      min-width: 820px;
+      min-width: 1080px;
       border-collapse: collapse;
       background: var(--card);
+      border-radius: 14px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
     }
     th, td {
       text-align: left;
       padding: 14px 16px;
       border-bottom: 1px solid rgba(128,128,128,.18);
       vertical-align: top;
+      overflow: visible;
     }
+    th:last-child,
     td.submit-cell {
-      min-width: 260px;
-      max-width: 320px;
+      min-width: 240px;
+      width: 240px;
+      max-width: none;
+      padding-right: 20px;
+    }
+    td.title-cell {
+      min-width: 180px;
+      max-width: 280px;
+    }
+    td.download-cell {
+      min-width: 120px;
+      white-space: nowrap;
     }
     th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
     tr:last-child td { border-bottom: none; }
@@ -127,7 +139,7 @@
       flex-direction: column;
       gap: 8px;
       width: 100%;
-      max-width: 280px;
+      min-width: 0;
     }
     .upload-form input[type="text"] {
       width: 100%;
@@ -160,9 +172,15 @@
       font-weight: 600;
       text-align: center;
       cursor: pointer;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      white-space: nowrap;
+      line-height: 1.35;
+    }
+    .upload-file-text {
+      display: block;
+      word-break: break-word;
+    }
+    .upload-form .upload-btn {
+      width: 100%;
+      text-align: center;
     }
     .upload-file-label:hover { border-color: var(--accent); color: var(--fg); }
     .upload-form input[type="file"].upload-file-hidden {
@@ -533,7 +551,7 @@
           '<input type="text" class="upload-name" placeholder="Your name" maxlength="120" value="' + esc(defaultName) + '" aria-label="Your name for upload" />' +
           '<label class="upload-file-label">' +
           '<input type="file" class="upload-file upload-file-hidden" accept=".txt,text/plain" aria-label="ocr-corrected.txt" />' +
-          '<span class="upload-file-text">Choose ocr-corrected.txt</span>' +
+          '<span class="upload-file-text">Choose file (.txt)</span>' +
           '</label>' +
           '<button type="button" class="btn btn-secondary upload-btn">Upload</button>' +
           '</div>' +
@@ -592,14 +610,14 @@
           if (status === 'published' || status === 'corrected') statusClass += ' corrected';
           else if (status === 'in_review') statusClass += ' in_review';
           return '<tr data-book-id="' + esc(b.id) + '">' +
-            '<td data-label="Title"><strong>' + esc(displayTitle(b)) + '</strong>' +
+            '<td data-label="Title" class="title-cell"><strong>' + esc(displayTitle(b)) + '</strong>' +
             (b.has_images ? ' <span class="badge-images">Has illustrations</span>' : '') +
             imageHintsHtml(b) + '</td>' +
             '<td data-label="Language">' + esc(b.language) + '</td>' +
             '<td data-label="Pages">' + esc(String(b.pages || '—')) + '</td>' +
             '<td data-label="Status"><span class="status-badge ' + statusClass + '">' + esc(STATUS_LABEL[status] || status) + '</span></td>' +
             '<td data-label="Picked up by" class="pick-cell">' + pickCellHtml(b, pick) + '</td>' +
-            '<td data-label="Download"><a class="btn" href="' + esc(b.download_url) + '" download>Download zip</a></td>' +
+            '<td data-label="Download" class="download-cell"><a class="btn" href="' + esc(b.download_url) + '" download>Download zip</a></td>' +
             '<td data-label="Submit corrected" class="submit-cell">' + submitCellHtml(b, pick) + '</td>' +
             '</tr>';
         }).join('');
@@ -678,7 +696,7 @@
           if (fileInput && fileText) {
             fileInput.addEventListener('change', function () {
               var name = fileInput.files && fileInput.files[0] && fileInput.files[0].name;
-              fileText.textContent = name || 'Choose ocr-corrected.txt';
+              fileText.textContent = name || 'Choose file (.txt)';
             });
           }
         });
