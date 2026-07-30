@@ -333,6 +333,21 @@
       "completed_at": null
     },
     {
+      "id": "d2570cdb-b933-491d-addc-1118990510b8",
+      "code": "GUJR0689_KARMAKAND_BHASKAR_RE2013",
+      "title": "GUJR0689 KARMAKAND BHASKAR RE2013",
+      "language": "gujarati",
+      "pages": 421,
+      "status": "needs_review",
+      "zip_name": "GUJR0689-karmakand-bhaskar-re2013.zip",
+      "storage_path": "gujarati/GUJR0689-karmakand-bhaskar-re2013.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR0689-karmakand-bhaskar-re2013.zip?v=2026-07-30-17-07-41",
+      "updated_at": "2026-07-30",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
       "id": "003ba5eb-87d2-4433-a28c-8d9133b5f14a",
       "code": "GUJR0964_PAVITRA_JIVAN_RE2010",
       "title": "GUJR0964 PAVITRA JIVAN RE2010",
