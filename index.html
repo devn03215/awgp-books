@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AWGP Books — OCR Review</title>
+  <title data-i18n="meta.title">AWGP Books — OCR Review</title>
   <style>
     :root {
       color-scheme: light dark;
@@ -238,6 +238,36 @@
       font-size: 14px;
     }
     footer { margin-top: 28px; text-align: center; font-size: 12px; color: var(--muted); }
+    .lang-switcher {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 12px 0 0;
+      justify-content: flex-start;
+    }
+    .lang-btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .lang-btn:hover { color: var(--fg); border-color: var(--accent); }
+    .lang-btn.is-active {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    html[lang="hi"] body,
+    html[lang="mr"] body,
+    html[lang="gu"] body {
+      font-family: "Noto Sans Devanagari", "Noto Sans Gujarati", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
     .error { color: #c0392b; }
     .filter-bar {
       display: flex;
@@ -343,80 +373,83 @@
 <body>
   <div class="wrap">
     <header>
-      <p class="badge">Volunteer workflow</p>
-      <h1 id="page-title">AWGP Books — OCR Review</h1>
-      <p class="lead" id="page-desc">Loading books…</p>
+      <p class="badge" data-i18n="chrome.badge">Volunteer workflow</p>
+      <h1 id="page-title" data-i18n="meta.title">AWGP Books — OCR Review</h1>
+      <p class="lead" id="page-desc" data-i18n="chrome.loadingBooks">Loading books…</p>
+      <div id="lang-switcher" class="lang-switcher" role="group" aria-label="Language"></div>
     </header>
 
     <section class="steps">
-      <strong>How to help</strong>
+      <strong data-i18n="steps.title">How to help</strong>
       <ol>
-        <li>Pick a book with status <em>Needs review</em> — enter your name under <strong>Picked up by</strong> and click <strong>Save</strong> so others know you are working on it.</li>
-        <li>Download the book zip (contains page images + <span class="mono">ocr-draft.txt</span>).</li>
-        <li>Open images alongside the draft text and fix OCR mistakes.</li>
-        <li>Keep page markers exactly: <span class="mono">===== PAGE N =====</span></li>
-        <li>Fix the text (see <strong>Help</strong> below for Gujarati / Hindi / Marathi — no install needed).</li>
-        <li>Save as <span class="mono">ocr-corrected.txt</span>.</li>
-        <li><strong>Upload</strong> your file on this page (column <em>Submit corrected</em>) — no email needed.</li>
+        <li data-i18n-html="steps.li1Html">Pick a book with status <em>Needs review</em> — enter your name under <strong>Picked up by</strong> and click <strong>Save</strong> so others know you are working on it.</li>
+        <li data-i18n-html="steps.li2Html">Download the book zip (contains page images + <span class="mono">ocr-draft.txt</span>).</li>
+        <li data-i18n="steps.li3">Open images alongside the draft text and fix OCR mistakes.</li>
+        <li data-i18n-html="steps.li4Html">Keep page markers exactly: <span class="mono">===== PAGE N =====</span></li>
+        <li data-i18n-html="steps.li5Html">Fix the text (see <strong>Help</strong> below for Gujarati / Hindi / Marathi — no install needed).</li>
+        <li data-i18n-html="steps.li6Html">Save as <span class="mono">ocr-corrected.txt</span>.</li>
+        <li data-i18n-html="steps.li7Html"><strong>Upload</strong> your file on this page (column <em>Submit corrected</em>) — no email needed.</li>
       </ol>
     </section>
 
     <div id="filters" hidden></div>
-    <div id="content"><p class="lead">Loading…</p></div>
+    <div id="content"><p class="lead" data-i18n="chrome.loading">Loading…</p></div>
 
     <details class="help" id="volunteer-help">
-      <summary>Help — how to fix Gujarati / Hindi / Marathi text (nothing to install)</summary>
+      <summary data-i18n="help.summary">Help — how to fix Gujarati / Hindi / Marathi text (nothing to install)</summary>
       <div class="help-body">
-        <p>You only need a web browser and the downloaded zip. No fonts or special software required.</p>
+        <p data-i18n="help.intro">You only need a web browser and the downloaded zip. No fonts or special software required.</p>
 
-        <h3>1. Open your files</h3>
+        <h3 data-i18n="help.openTitle">1. Open your files</h3>
         <ol>
-          <li>Download a book zip from the table above and <strong>unzip</strong> it.</li>
-          <li>Open the <span class="mono">pages</span> folder — open a page image (e.g. <span class="mono">page_004.png</span>) and keep it visible.</li>
-          <li>Open <span class="mono">ocr-draft.txt</span> (double-click on computer; on phone use Notes or any text app). Wrapped lines are already joined into paragraphs — blank lines mark new paragraphs.</li>
+          <li data-i18n-html="help.open1Html">Download a book zip from the table above and <strong>unzip</strong> it.</li>
+          <li data-i18n-html="help.open2Html">Open the <span class="mono">pages</span> folder — open a page image (e.g. <span class="mono">page_004.png</span>) and keep it visible.</li>
+          <li data-i18n-html="help.open3Html">Open <span class="mono">ocr-draft.txt</span> (double-click on computer; on phone use Notes or any text app). Wrapped lines are already joined into paragraphs — blank lines mark new paragraphs.</li>
         </ol>
 
-        <h3>2. Type Gujarati, Hindi, or Marathi online (free)</h3>
+        <h3 data-i18n="help.typeTitle">2. Type Gujarati, Hindi, or Marathi online (free)</h3>
         <ol>
-          <li>Open <a href="https://www.google.com/inputtools/try/" target="_blank" rel="noopener">Google Input Tools</a> in your browser.</li>
-          <li>Choose your language: <strong>Gujarati</strong> (ગુજરાતી), <strong>Hindi</strong> (हिन्दी), or <strong>Marathi</strong> (मराठी).</li>
-          <li>Click in the text box and type the word <strong>in English letters</strong> as you say it — e.g. <span class="mono">pavitra</span>, <span class="mono">gaayatri</span>.</li>
-          <li>When the correct script appears, <strong>select it → Copy</strong>.</li>
-          <li>Go back to <span class="mono">ocr-draft.txt</span>, find the wrong word, delete it, and <strong>Paste</strong>.</li>
-          <li>Check against the page image — the text should match the picture.</li>
+          <li data-i18n-html="help.type1Html">Open <a href="https://www.google.com/inputtools/try/" target="_blank" rel="noopener">Google Input Tools</a> in your browser.</li>
+          <li data-i18n-html="help.type2Html">Choose your language: <strong>Gujarati</strong> (ગુજરાતી), <strong>Hindi</strong> (हिन्दी), or <strong>Marathi</strong> (मराठी).</li>
+          <li data-i18n-html="help.type3Html">Click in the text box and type the word <strong>in English letters</strong> as you say it — e.g. <span class="mono">pavitra</span>, <span class="mono">gaayatri</span>.</li>
+          <li data-i18n-html="help.type4Html">When the correct script appears, <strong>select it → Copy</strong>.</li>
+          <li data-i18n-html="help.type5Html">Go back to <span class="mono">ocr-draft.txt</span>, find the wrong word, delete it, and <strong>Paste</strong>.</li>
+          <li data-i18n="help.type6">Check against the page image — the text should match the picture.</li>
         </ol>
-        <p class="help-note">
+        <p class="help-note" data-i18n-html="help.noteHtml">
           Gujarati menu version (same tool):
           <a href="https://www.google.com/intl/gu/inputtools/try/" target="_blank" rel="noopener">google.com/intl/gu/inputtools/try</a>
         </p>
 
-        <h3>3. Save and upload</h3>
+        <h3 data-i18n="help.saveTitle">3. Save and upload</h3>
         <ol>
-          <li>Keep every page marker exactly as-is: <span class="mono">===== PAGE 1 =====</span></li>
-          <li>When finished, save as <span class="mono">ocr-corrected.txt</span>.</li>
-          <li>On this page, under <strong>Submit corrected</strong>, enter your name, choose the file, and click <strong>Upload</strong>.</li>
+          <li data-i18n-html="help.save1Html">Keep every page marker exactly as-is: <span class="mono">===== PAGE 1 =====</span></li>
+          <li data-i18n-html="help.save2Html">When finished, save as <span class="mono">ocr-corrected.txt</span>.</li>
+          <li data-i18n-html="help.save3Html">On this page, under <strong>Submit corrected</strong>, enter your name, choose the file, and click <strong>Upload</strong>.</li>
         </ol>
 
-        <h3>Optional: Google Docs</h3>
+        <h3 data-i18n="help.docsTitle">Optional: Google Docs</h3>
         <ol>
-          <li>Go to <a href="https://docs.google.com" target="_blank" rel="noopener">docs.google.com</a> (free Google account).</li>
-          <li>Paste all of <span class="mono">ocr-draft.txt</span> into a new document.</li>
-          <li>Use Google Input Tools (step 2) in another tab to copy corrected words into the document.</li>
-          <li><strong>File → Download → Plain text (.txt)</strong>, rename to <span class="mono">ocr-corrected.txt</span>.</li>
+          <li data-i18n-html="help.docs1Html">Go to <a href="https://docs.google.com" target="_blank" rel="noopener">docs.google.com</a> (free Google account).</li>
+          <li data-i18n-html="help.docs2Html">Paste all of <span class="mono">ocr-draft.txt</span> into a new document.</li>
+          <li data-i18n="help.docs3">Use Google Input Tools (step 2) in another tab to copy corrected words into the document.</li>
+          <li data-i18n-html="help.docs4Html"><strong>File → Download → Plain text (.txt)</strong>, rename to <span class="mono">ocr-corrected.txt</span>.</li>
         </ol>
       </div>
     </details>
 
-    <footer>All World Gayatri Pariwar · AWGP Books</footer>
+    <footer data-i18n="chrome.footer">All World Gayatri Pariwar · AWGP Books</footer>
   </div>
+  <script src="js/locales/en.js"></script>
+  <script src="js/locales/hi.js"></script>
+  <script src="js/locales/gu.js"></script>
+  <script src="js/locales/mr.js"></script>
+  <script src="js/i18n.js"></script>
   <script>
     (function () {
-      var STATUS_LABEL = {
-        needs_review: 'Needs review',
-        in_review: 'In review',
-        corrected: 'Corrected',
-        published: 'Published'
-      };
+      function t(key, fallback) {
+        return (window.AWGP_BOOKS_t || function (k, f) { return f != null ? f : k; })(key, fallback);
+      }
 
       var config = null;
       var currentManifest = null;
@@ -459,14 +492,9 @@
       }
 
       function languageLabel(lang) {
-        var labels = {
-          english: 'English',
-          gujarati: 'Gujarati',
-          hindi: 'Hindi',
-          marathi: 'Marathi'
-        };
         var key = String(lang || '').toLowerCase();
-        return labels[key] || (key ? key.charAt(0).toUpperCase() + key.slice(1) : 'Unknown');
+        if (!key) return t('lang.unknown');
+        return t('lang.' + key, key.charAt(0).toUpperCase() + key.slice(1));
       }
 
       function uniqueLanguages(books) {
@@ -494,7 +522,7 @@
         var langs = uniqueLanguages(books);
         var visible = filteredBooks(books);
         var chips = '<button type="button" class="filter-btn' + (languageFilter === 'all' ? ' active' : '') +
-          '" data-lang="all">All <span class="filter-n">(' + books.length + ')</span></button>';
+          '" data-lang="all">' + esc(t('lang.all')) + ' <span class="filter-n">(' + books.length + ')</span></button>';
         langs.forEach(function (lang) {
           var count = books.filter(function (b) {
             return String(b.language || '').toLowerCase() === lang;
@@ -504,8 +532,12 @@
             ' <span class="filter-n">(' + count + ')</span></button>';
         });
         return '<div class="filter-bar">' +
-          '<span class="filter-label">Language</span>' + chips +
-          '<span class="filter-summary">Showing ' + visible.length + ' of ' + books.length + ' books</span>' +
+          '<span class="filter-label">' + esc(t('lang.filterLabel')) + '</span>' + chips +
+          '<span class="filter-summary">' + esc(
+            t('lang.showing')
+              .replace('__VISIBLE__', String(visible.length))
+              .replace('__TOTAL__', String(books.length))
+          ) + '</span>' +
           '</div>';
       }
 
@@ -533,7 +565,7 @@
       function submitCellHtml(b, pick) {
         var submission = submissionsByBook[b.id];
         if (submission) {
-          return '<span class="submitted-badge">Submitted ✓</span><br>' +
+          return '<span class="submitted-badge">' + esc(t('table.submitted')) + '</span><br>' +
             '<span class="mono">' + esc(submission.submitted_by) + '</span>' +
             '<br><span class="mono">' + esc(formatDate(submission.submitted_at)) + '</span>';
         }
@@ -544,16 +576,16 @@
         else if (b.assigned_to) defaultName = b.assigned_to;
 
         if (!config.submitOcrCorrectedUrl) {
-          return '<span class="mono">Upload not configured</span>';
+          return '<span class="mono">' + esc(t('table.uploadNotConfigured')) + '</span>';
         }
 
         return '<div class="upload-form" data-book-id="' + esc(b.id) + '">' +
-          '<input type="text" class="upload-name" placeholder="Your name" maxlength="120" value="' + esc(defaultName) + '" aria-label="Your name for upload" />' +
+          '<input type="text" class="upload-name" placeholder="' + esc(t('table.yourName')) + '" maxlength="120" value="' + esc(defaultName) + '" aria-label="' + esc(t('table.yourNameUploadAria')) + '" />' +
           '<label class="upload-file-label">' +
           '<input type="file" class="upload-file upload-file-hidden" accept=".txt,text/plain" aria-label="ocr-corrected.txt" />' +
-          '<span class="upload-file-text">Choose file (.txt)</span>' +
+          '<span class="upload-file-text">' + esc(t('table.chooseFile')) + '</span>' +
           '</label>' +
-          '<button type="button" class="btn btn-secondary upload-btn">Upload</button>' +
+          '<button type="button" class="btn btn-secondary upload-btn">' + esc(t('table.upload')) + '</button>' +
           '</div>' +
           '<div class="pick-msg upload-msg" hidden></div>';
       }
@@ -561,34 +593,34 @@
       function pickCellHtml(b, pick) {
         var status = effectiveStatus(b, pick);
         var done = status === 'corrected' || status === 'published';
+        var sinceTpl = t('table.since');
 
         if (pick) {
           return '<span class="picked-name">' + esc(pick.picked_up_by) + '</span>' +
-            '<br><span class="mono">since ' + esc(formatDate(pick.picked_up_at)) + '</span>';
+            '<br><span class="mono">' + esc(sinceTpl.replace('__DATE__', formatDate(pick.picked_up_at))) + '</span>';
         }
         if (b.assigned_to && !pick) {
           return '<span class="picked-name">' + esc(b.assigned_to) + '</span>' +
-            (b.claimed_at ? '<br><span class="mono">since ' + esc(b.claimed_at) + '</span>' : '');
+            (b.claimed_at ? '<br><span class="mono">' + esc(sinceTpl.replace('__DATE__', b.claimed_at)) + '</span>' : '');
         }
         if (done) return '—';
 
         return '<div class="pick-form" data-book-id="' + esc(b.id) + '">' +
-          '<input type="text" placeholder="Your name" maxlength="120" aria-label="Your name" />' +
-          '<button type="button" class="btn btn-secondary pick-save">Save</button>' +
+          '<input type="text" placeholder="' + esc(t('table.yourName')) + '" maxlength="120" aria-label="' + esc(t('table.yourName')) + '" />' +
+          '<button type="button" class="btn btn-secondary pick-save">' + esc(t('table.save')) + '</button>' +
           '</div>' +
           '<div class="pick-msg" hidden></div>';
       }
 
       function imageHintsHtml(b) {
         if (!b.has_images) return '';
-        var intro = b.image_guidance_summary ||
-          'This book contains diagrams or tables. Fix normal text pages as usual. On the pages listed below, focus on prose only.';
+        var intro = b.image_guidance_summary || t('table.imageHintsIntro');
         var pages = b.image_page_hints || [];
         var list = pages.map(function (h) {
-          return '<li><span class="mono">Page ' + esc(String(h.page)) + '</span> — ' + esc(h.hint) + '</li>';
+          return '<li><span class="mono">' + esc(t('table.pageLabel').replace('__PAGE__', String(h.page))) + '</span> — ' + esc(h.hint) + '</li>';
         }).join('');
         return '<details class="image-hints">' +
-          '<summary>Illustration &amp; table pages — read before correcting</summary>' +
+          '<summary>' + esc(t('table.imageHintsSummary')) + '</summary>' +
           '<p>' + esc(intro) + '</p>' +
           (list ? '<ul>' + list + '</ul>' : '') +
           '</details>';
@@ -598,11 +630,18 @@
         var allBooks = manifest.books || [];
         var books = filteredBooks(allBooks);
         if (!allBooks.length) {
-          return '<p class="lead">No books listed yet. An admin will add packages here.</p>';
+          return '<p class="lead">' + esc(t('table.empty')) + '</p>';
         }
         if (!books.length) {
-          return '<p class="lead">No books match this language filter. Choose <strong>All</strong> or another language above.</p>';
+          return '<p class="lead">' + t('table.emptyFilterHtml') + '</p>';
         }
+        var labelTitle = t('table.title');
+        var labelLanguage = t('table.language');
+        var labelPages = t('table.pages');
+        var labelStatus = t('table.status');
+        var labelPicked = t('table.pickedUpBy');
+        var labelDownload = t('table.download');
+        var labelSubmit = t('table.submitCorrected');
         var rows = books.map(function (b) {
           var pick = picksByBook[b.id];
           var status = effectiveStatus(b, pick);
@@ -610,19 +649,19 @@
           if (status === 'published' || status === 'corrected') statusClass += ' corrected';
           else if (status === 'in_review') statusClass += ' in_review';
           return '<tr data-book-id="' + esc(b.id) + '">' +
-            '<td data-label="Title" class="title-cell"><strong>' + esc(displayTitle(b)) + '</strong>' +
-            (b.has_images ? ' <span class="badge-images">Has illustrations</span>' : '') +
+            '<td data-label="' + esc(labelTitle) + '" class="title-cell"><strong>' + esc(displayTitle(b)) + '</strong>' +
+            (b.has_images ? ' <span class="badge-images">' + esc(t('table.hasIllustrations')) + '</span>' : '') +
             imageHintsHtml(b) + '</td>' +
-            '<td data-label="Language">' + esc(b.language) + '</td>' +
-            '<td data-label="Pages">' + esc(String(b.pages || '—')) + '</td>' +
-            '<td data-label="Status"><span class="status-badge ' + statusClass + '">' + esc(STATUS_LABEL[status] || status) + '</span></td>' +
-            '<td data-label="Picked up by" class="pick-cell">' + pickCellHtml(b, pick) + '</td>' +
-            '<td data-label="Download" class="download-cell"><a class="btn" href="' + esc(b.download_url) + '" download>Download zip</a></td>' +
-            '<td data-label="Submit corrected" class="submit-cell">' + submitCellHtml(b, pick) + '</td>' +
+            '<td data-label="' + esc(labelLanguage) + '">' + esc(b.language) + '</td>' +
+            '<td data-label="' + esc(labelPages) + '">' + esc(String(b.pages || '—')) + '</td>' +
+            '<td data-label="' + esc(labelStatus) + '"><span class="status-badge ' + statusClass + '">' + esc(t('status.' + status, status)) + '</span></td>' +
+            '<td data-label="' + esc(labelPicked) + '" class="pick-cell">' + pickCellHtml(b, pick) + '</td>' +
+            '<td data-label="' + esc(labelDownload) + '" class="download-cell"><a class="btn" href="' + esc(b.download_url) + '" download>' + esc(t('table.downloadZip')) + '</a></td>' +
+            '<td data-label="' + esc(labelSubmit) + '" class="submit-cell">' + submitCellHtml(b, pick) + '</td>' +
             '</tr>';
         }).join('');
         return '<div class="table-scroll"><table><thead><tr>' +
-          '<th>Title</th><th>Language</th><th>Pages</th><th>Status</th><th>Picked up by</th><th>Download</th><th>Submit corrected</th>' +
+          '<th>' + esc(labelTitle) + '</th><th>' + esc(labelLanguage) + '</th><th>' + esc(labelPages) + '</th><th>' + esc(labelStatus) + '</th><th>' + esc(labelPicked) + '</th><th>' + esc(labelDownload) + '</th><th>' + esc(labelSubmit) + '</th>' +
           '</tr></thead><tbody>' + rows + '</tbody></table></div>';
       }
 
@@ -640,7 +679,7 @@
         return fetch(url, { headers: supabaseHeaders(), cache: 'no-store' })
           .then(function (r) {
             if (r.status === 404 || r.status === 400) return [];
-            if (!r.ok) throw new Error('Could not load submissions (HTTP ' + r.status + ')');
+            if (!r.ok) throw new Error(t('msg.loadSubmissionsFailed').replace('__STATUS__', String(r.status)));
             return r.json();
           })
           .then(function (rows) {
@@ -657,13 +696,13 @@
       function uploadCorrected(bookId, name, file, btn) {
         var trimmed = name.trim();
         if (trimmed.length < 2) {
-          return Promise.reject(new Error('Please enter your name (at least 2 characters).'));
+          return Promise.reject(new Error(t('msg.nameShort')));
         }
         if (!file) {
-          return Promise.reject(new Error('Choose your ocr-corrected.txt file.'));
+          return Promise.reject(new Error(t('msg.chooseFileErr')));
         }
         if (!config.submitOcrCorrectedUrl) {
-          return Promise.reject(new Error('Upload URL not configured.'));
+          return Promise.reject(new Error(t('msg.uploadUrlMissing')));
         }
         btn.disabled = true;
         var form = new FormData();
@@ -679,7 +718,7 @@
           body: form
         }).then(function (r) {
           return r.json().then(function (body) {
-            if (!r.ok) throw new Error(body.error || ('Upload failed (HTTP ' + r.status + ')'));
+            if (!r.ok) throw new Error(body.error || t('msg.uploadHttpFailed').replace('__STATUS__', String(r.status)));
             return body;
           });
         }).then(function () {
@@ -696,7 +735,7 @@
           if (fileInput && fileText) {
             fileInput.addEventListener('change', function () {
               var name = fileInput.files && fileInput.files[0] && fileInput.files[0].name;
-              fileText.textContent = name || 'Choose file (.txt)';
+              fileText.textContent = name || t('table.chooseFile');
             });
           }
         });
@@ -709,7 +748,7 @@
             var msg = form.parentElement.querySelector('.upload-msg');
             msg.hidden = false;
             msg.className = 'pick-msg upload-msg';
-            msg.textContent = 'Uploading…';
+            msg.textContent = t('msg.uploading');
             uploadCorrected(bookId, nameInput.value, fileInput.files[0], btn)
               .then(function () {
                 refreshContent();
@@ -719,13 +758,13 @@
                   if (m) {
                     m.hidden = false;
                     m.className = 'pick-msg ok upload-msg';
-                    m.textContent = 'Uploaded — thank you!';
+                    m.textContent = t('msg.uploaded');
                   }
                 }
               })
               .catch(function (err) {
                 msg.className = 'pick-msg error upload-msg';
-                msg.textContent = err.message || 'Upload failed.';
+                msg.textContent = err.message || t('msg.uploadFailed');
               });
           });
         });
@@ -736,7 +775,7 @@
           '/rest/v1/book_ocr_picks?select=book_id,picked_up_by,picked_up_at';
         return fetch(url, { headers: supabaseHeaders(), cache: 'no-store' })
           .then(function (r) {
-            if (!r.ok) throw new Error('Could not load picks (HTTP ' + r.status + ')');
+            if (!r.ok) throw new Error(t('msg.loadPicksFailed').replace('__STATUS__', String(r.status)));
             return r.json();
           })
           .then(function (rows) {
@@ -750,7 +789,7 @@
       function savePick(bookId, name, btn) {
         var trimmed = name.trim();
         if (trimmed.length < 2) {
-          return Promise.reject(new Error('Please enter at least 2 characters.'));
+          return Promise.reject(new Error(t('msg.nameShortPick')));
         }
         btn.disabled = true;
         var url = config.supabaseUrl.replace(/\/$/, '') + '/rest/v1/book_ocr_picks';
@@ -761,10 +800,10 @@
         }).then(function (r) {
           if (r.status === 409 || r.status === 400) {
             return fetchPicks().then(function () {
-              throw new Error('Someone else picked this book first. Refresh to see who.');
+              throw new Error(t('msg.pickedFirst'));
             });
           }
-          if (!r.ok) throw new Error('Save failed (HTTP ' + r.status + ')');
+          if (!r.ok) throw new Error(t('msg.saveHttpFailed').replace('__STATUS__', String(r.status)));
           return fetchPicks();
         }).finally(function () {
           btn.disabled = false;
@@ -780,7 +819,7 @@
             var msg = form.parentElement.querySelector('.pick-msg');
             msg.hidden = false;
             msg.className = 'pick-msg';
-            msg.textContent = 'Saving…';
+            msg.textContent = t('msg.saving');
             savePick(bookId, input.value, btn)
               .then(function () {
                 refreshContent();
@@ -793,12 +832,12 @@
                   }
                   m.hidden = false;
                   m.className = 'pick-msg ok';
-                  m.textContent = 'Saved — thanks!';
+                  m.textContent = t('msg.saved');
                 }
               })
               .catch(function (err) {
                 msg.className = 'pick-msg error';
-                msg.textContent = err.message || 'Could not save.';
+                msg.textContent = err.message || t('msg.saveFailed');
                 if (picksByBook[bookId]) {
                   refreshContent();
                 }
@@ -810,11 +849,11 @@
       function loadAll() {
         return Promise.all([
           fetch('config.json', { cache: 'no-store' }).then(function (r) {
-            if (!r.ok) throw new Error('config.json missing — run: npm run sync:books-config');
+            if (!r.ok) throw new Error(t('msg.configMissing'));
             return r.json();
           }),
           fetch('manifest.json', { cache: 'no-store' }).then(function (r) {
-            if (!r.ok) throw new Error('manifest.json not found');
+            if (!r.ok) throw new Error(t('msg.manifestMissing'));
             return r.json();
           })
         ]).then(function (results) {
@@ -829,8 +868,12 @@
       loadAll()
         .then(function (manifest) {
           currentManifest = manifest;
-          document.getElementById('page-title').textContent = manifest.title || 'AWGP Books — OCR Review';
-          document.getElementById('page-desc').textContent = manifest.description || '';
+          document.getElementById('page-title').textContent = manifest.title || t('meta.title');
+          if (manifest.description) {
+            document.getElementById('page-desc').textContent = manifest.description;
+          } else {
+            document.getElementById('page-desc').textContent = '';
+          }
           refreshContent();
         })
         .catch(function (err) {
