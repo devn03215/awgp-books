@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title data-i18n="meta.title">AWGP Books — OCR Review</title>
+  <style>
+    :root {
+      color-scheme: light dark;
+      --fg: #1d1d1f;
+      --muted: #6e6e73;
+      --bg: #f5f5f7;
+      --card: #fff;
+      --accent: #ff6b35;
+      --ok: #248a3d;
+      --border: rgba(128,128,128,.35);
+    }
+    @media (prefers-color-scheme: dark) {
+      :root { --fg: #f5f5f7; --muted: #a1a1a6; --bg: #0d0d0f; --card: #1c1c1e; --border: rgba(128,128,128,.4); }
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      margin: 0;
+      padding: 24px 16px 48px;
+      background: var(--bg);
+      color: var(--fg);
+      line-height: 1.5;
+    }
+    .wrap { max-width: 1140px; width: 100%; margin: 0 auto; }
+    header { margin-bottom: 28px; }
+    .badge {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 8px;
+    }
+    h1 { font-size: 1.75rem; margin: 0 0 10px; }
+    .lead { color: var(--muted); margin: 0 0 20px; max-width: 640px; }
+    .steps {
+      background: var(--card);
+      border-radius: 14px;
+      padding: 18px 20px;
+      margin-bottom: 24px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+    }
+    .steps ol { margin: 0; padding-left: 20px; }
+    .steps li { margin: 6px 0; }
+    .table-scroll {
+      width: 100%;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin-bottom: 4px;
+    }
+    table {
+      width: 100%;
+      min-width: 1080px;
+      border-collapse: collapse;
+      background: var(--card);
+      border-radius: 14px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+    }
+    th, td {
+      text-align: left;
+      padding: 14px 16px;
+      border-bottom: 1px solid rgba(128,128,128,.18);
+      vertical-align: top;
+      overflow: visible;
+    }
+    th:last-child,
+    td.submit-cell {
+      min-width: 240px;
+      width: 240px;
+      max-width: none;
+      padding-right: 20px;
+    }
+    td.title-cell {
+      min-width: 180px;
+      max-width: 280px;
+    }
+    td.download-cell {
+      min-width: 120px;
+      white-space: nowrap;
+    }
+    th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
+    tr:last-child td { border-bottom: none; }
+    .btn {
+      display: inline-block;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      background: var(--accent);
+      color: #fff !important;
+      white-space: nowrap;
+    }
+    .btn:disabled { opacity: .55; cursor: not-allowed; }
+    .btn-secondary {
+      background: transparent;
+      color: var(--fg) !important;
+      border: 1px solid var(--border);
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+    .status {
+      display: inline-block;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      background: rgba(255,107,53,.15);
+      color: var(--accent);
+    }
+    .status.in_review { background: rgba(10,132,255,.15); color: #0a84ff; }
+    .status.corrected { background: rgba(36,138,61,.15); color: var(--ok); }
+    .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 12px; color: var(--muted); }
+    .pick-form { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; max-width: 280px; }
+    .pick-form input {
+      flex: 1 1 140px;
+      min-width: 0;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--fg);
+      font-size: 14px;
+    }
+    .picked-name { font-weight: 600; }
+    .pick-msg { font-size: 12px; margin-top: 6px; }
+    .pick-msg.error { color: #c0392b; }
+    .pick-msg.ok { color: var(--ok); }
+    .upload-form {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+      min-width: 0;
+    }
+    .upload-form input[type="text"] {
+      width: 100%;
+      padding: 8px 10px;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      color: var(--fg);
+      font-size: 13px;
+    }
+    .upload-form input[type="file"] {
+      width: 100%;
+      max-width: 100%;
+      box-sizing: border-box;
+      padding: 6px 0;
+      border: none;
+      background: transparent;
+      color: var(--fg);
+      font-size: 12px;
+    }
+    .upload-file-label {
+      display: block;
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 8px;
+      border: 1px dashed var(--border);
+      background: var(--bg);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 600;
+      text-align: center;
+      cursor: pointer;
+      line-height: 1.35;
+    }
+    .upload-file-text {
+      display: block;
+      word-break: break-word;
+    }
+    .upload-form .upload-btn {
+      width: 100%;
+      text-align: center;
+    }
+    .upload-file-label:hover { border-color: var(--accent); color: var(--fg); }
+    .upload-form input[type="file"].upload-file-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      border: 0;
+    }
+    .submitted-badge {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--ok);
+    }
+    .help {
+      background: var(--card);
+      border-radius: 14px;
+      margin-top: 24px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+      overflow: hidden;
+    }
+    .help summary {
+      cursor: pointer;
+      font-weight: 600;
+      padding: 16px 20px;
+      list-style: none;
+    }
+    .help summary::-webkit-details-marker { display: none; }
+    .help summary::after {
+      content: ' ▾';
+      color: var(--muted);
+      font-weight: 400;
+    }
+    .help[open] summary::after { content: ' ▴'; }
+    .help-body {
+      padding: 0 20px 20px;
+      border-top: 1px solid rgba(128,128,128,.15);
+    }
+    .help-body h3 {
+      font-size: 1rem;
+      margin: 18px 0 8px;
+    }
+    .help-body h3:first-child { margin-top: 16px; }
+    .help-body ol { margin: 0; padding-left: 20px; }
+    .help-body li { margin: 8px 0; }
+    .help-body a { color: #0a84ff; }
+    .help-note {
+      margin-top: 16px;
+      padding: 12px 14px;
+      border-radius: 10px;
+      background: rgba(10,132,255,.08);
+      font-size: 14px;
+    }
+    footer { margin-top: 28px; text-align: center; font-size: 12px; color: var(--muted); }
+    .lang-switcher {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin: 12px 0 0;
+      justify-content: flex-start;
+    }
+    .lang-btn {
+      appearance: none;
+      border: 1px solid var(--border);
+      background: var(--card);
+      color: var(--muted);
+      font: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+    }
+    .lang-btn:hover { color: var(--fg); border-color: var(--accent); }
+    .lang-btn.is-active {
+      color: #fff;
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+    html[lang="hi"] body,
+    html[lang="mr"] body,
+    html[lang="gu"] body {
+      font-family: "Noto Sans Devanagari", "Noto Sans Gujarati", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    .error { color: #c0392b; }
+    .filter-bar {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      background: var(--card);
+      border-radius: 14px;
+      padding: 14px 16px;
+      margin-bottom: 16px;
+      box-shadow: 0 2px 16px rgba(0,0,0,.06);
+    }
+    .filter-label {
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      color: var(--muted);
+      margin-right: 4px;
+    }
+    .filter-btn {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: transparent;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--fg);
+      font-family: inherit;
+    }
+    .filter-btn:hover { border-color: var(--accent); }
+    .filter-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+    .filter-btn .filter-n { font-weight: 500; opacity: .85; }
+    .filter-summary {
+      flex: 1 1 100%;
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+    @media (min-width: 640px) {
+      .filter-summary { flex: 1 1 auto; text-align: right; margin-top: 0; }
+    }
+    .badge-images {
+      display: inline-block;
+      margin-left: 8px;
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(10,132,255,.15);
+      color: #0a84ff;
+      vertical-align: middle;
+    }
+    .image-hints {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--fg);
+    }
+    .image-hints summary {
+      cursor: pointer;
+      font-weight: 600;
+      color: #0a84ff;
+    }
+    .image-hints p { margin: 8px 0; color: var(--muted); }
+    .image-hints ul { margin: 0; padding-left: 18px; }
+    .image-hints li { margin: 6px 0; }
+    @media (max-width: 720px) {
+      .table-scroll {
+        overflow: visible;
+        box-shadow: none;
+        background: transparent;
+      }
+      table {
+        min-width: 0;
+        background: var(--card);
+        border-radius: 14px;
+        box-shadow: 0 2px 16px rgba(0,0,0,.06);
+      }
+      table, thead, tbody, th, td, tr { display: block; }
+      thead { display: none; }
+      tr { border-bottom: 1px solid rgba(128,128,128,.18); padding: 12px 0; }
+      td { border: none; padding: 4px 16px; }
+      td.submit-cell { min-width: 0; max-width: none; }
+      td::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 11px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-bottom: 2px;
+      }
+      .upload-form { max-width: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <p class="badge" data-i18n="chrome.badge">Volunteer workflow</p>
+      <h1 id="page-title" data-i18n="meta.title">AWGP Books — OCR Review</h1>
+      <p class="lead" id="page-desc" data-i18n="chrome.loadingBooks">Loading books…</p>
+      <div id="lang-switcher" class="lang-switcher" role="group" aria-label="Language"></div>
+    </header>
+
+    <section class="steps">
+      <strong data-i18n="steps.title">How to help</strong>
+      <ol>
+        <li data-i18n-html="steps.li1Html">Pick a book with status <em>Needs review</em> — enter your name under <strong>Picked up by</strong> and click <strong>Save</strong> so others know you are working on it.</li>
+        <li data-i18n-html="steps.li2Html">Download the book zip (contains page images + <span class="mono">ocr-draft.txt</span>).</li>
+        <li data-i18n="steps.li3">Open images alongside the draft text and fix OCR mistakes.</li>
+        <li data-i18n-html="steps.li4Html">Keep page markers exactly: <span class="mono">===== PAGE N =====</span></li>
+        <li data-i18n-html="steps.li5Html">Fix the text (see <strong>Help</strong> below for Gujarati / Hindi / Marathi — no install needed).</li>
+        <li data-i18n-html="steps.li6Html">Save as <span class="mono">ocr-corrected.txt</span>.</li>
+        <li data-i18n-html="steps.li7Html"><strong>Upload</strong> your file on this page (column <em>Submit corrected</em>) — no email needed.</li>
+      </ol>
+    </section>
+
+    <div id="filters" hidden></div>
+    <div id="content"><p class="lead" data-i18n="chrome.loading">Loading…</p></div>
+
+    <details class="help" id="volunteer-help">
+      <summary data-i18n="help.summary">Help — how to fix Gujarati / Hindi / Marathi text (nothing to install)</summary>
+      <div class="help-body">
+        <p data-i18n="help.intro">You only need a web browser and the downloaded zip. No fonts or special software required.</p>
+
+        <h3 data-i18n="help.openTitle">1. Open your files</h3>
+        <ol>
+          <li data-i18n-html="help.open1Html">Download a book zip from the table above and <strong>unzip</strong> it.</li>
+          <li data-i18n-html="help.open2Html">Open the <span class="mono">pages</span> folder — open a page image (e.g. <span class="mono">page_004.png</span>) and keep it visible.</li>
+          <li data-i18n-html="help.open3Html">Open <span class="mono">ocr-draft.txt</span> (double-click on computer; on phone use Notes or any text app). Wrapped lines are already joined into paragraphs — blank lines mark new paragraphs.</li>
+        </ol>
+
+        <h3 data-i18n="help.typeTitle">2. Type Gujarati, Hindi, or Marathi online (free)</h3>
+        <ol>
+          <li data-i18n-html="help.type1Html">Open <a href="https://www.google.com/inputtools/try/" target="_blank" rel="noopener">Google Input Tools</a> in your browser.</li>
+          <li data-i18n-html="help.type2Html">Choose your language: <strong>Gujarati</strong> (ગુજરાતી), <strong>Hindi</strong> (हिन्दी), or <strong>Marathi</strong> (मराठी).</li>
+          <li data-i18n-html="help.type3Html">Click in the text box and type the word <strong>in English letters</strong> as you say it — e.g. <span class="mono">pavitra</span>, <span class="mono">gaayatri</span>.</li>
+          <li data-i18n-html="help.type4Html">When the correct script appears, <strong>select it → Copy</strong>.</li>
+          <li data-i18n-html="help.type5Html">Go back to <span class="mono">ocr-draft.txt</span>, find the wrong word, delete it, and <strong>Paste</strong>.</li>
+          <li data-i18n="help.type6">Check against the page image — the text should match the picture.</li>
+        </ol>
+        <p class="help-note" data-i18n-html="help.noteHtml">
+          Gujarati menu version (same tool):
+          <a href="https://www.google.com/intl/gu/inputtools/try/" target="_blank" rel="noopener">google.com/intl/gu/inputtools/try</a>
+        </p>
+
+        <h3 data-i18n="help.saveTitle">3. Save and upload</h3>
+        <ol>
+          <li data-i18n-html="help.save1Html">Keep every page marker exactly as-is: <span class="mono">===== PAGE 1 =====</span></li>
+          <li data-i18n-html="help.save2Html">When finished, save as <span class="mono">ocr-corrected.txt</span>.</li>
+          <li data-i18n-html="help.save3Html">On this page, under <strong>Submit corrected</strong>, enter your name, choose the file, and click <strong>Upload</strong>.</li>
+        </ol>
+
+        <h3 data-i18n="help.docsTitle">Optional: Google Docs</h3>
+        <ol>
+          <li data-i18n-html="help.docs1Html">Go to <a href="https://docs.google.com" target="_blank" rel="noopener">docs.google.com</a> (free Google account).</li>
+          <li data-i18n-html="help.docs2Html">Paste all of <span class="mono">ocr-draft.txt</span> into a new document.</li>
+          <li data-i18n="help.docs3">Use Google Input Tools (step 2) in another tab to copy corrected words into the document.</li>
+          <li data-i18n-html="help.docs4Html"><strong>File → Download → Plain text (.txt)</strong>, rename to <span class="mono">ocr-corrected.txt</span>.</li>
+        </ol>
+      </div>
+    </details>
+
+    <footer data-i18n="chrome.footer">All World Gayatri Pariwar · AWGP Books</footer>
+  </div>
+  <script src="js/locales/en.js"></script>
+  <script src="js/locales/hi.js"></script>
+  <script src="js/locales/gu.js"></script>
+  <script src="js/locales/mr.js"></script>
+  <script src="js/i18n.js"></script>
+  <script>
+    (function () {
+      function t(key, fallback) {
+        return (window.AWGP_BOOKS_t || function (k, f) { return f != null ? f : k; })(key, fallback);
+      }
+
+      var config = null;
+      var currentManifest = null;
+      var picksByBook = {};
+      var submissionsByBook = {};
+      var languageFilter = sessionStorage.getItem('awgp-books-lang-filter') || 'all';
+
+      function esc(s) {
+        return String(s || '').replace(/[&<>"']/g, function (c) {
+          return ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c];
+        });
+      }
+
+      function displayTitle(b) {
+        var title = (b.title || '').trim();
+        if (!title) return '—';
+        var code = (b.code || '').trim();
+        var shortCode = code.match(/^([A-Za-z]+\d+)/);
+        if (shortCode) {
+          var prefix = new RegExp('^' + shortCode[1].replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + '[\\s_]+', 'i');
+          title = title.replace(prefix, '').trim();
+        }
+        return title || (b.title || '').trim();
+      }
+
+      function formatDate(iso) {
+        if (!iso) return '';
+        try {
+          return iso.slice(0, 10);
+        } catch (e) {
+          return iso;
+        }
+      }
+
+      function effectiveStatus(b, pick) {
+        if (b.status === 'published') return 'published';
+        if (submissionsByBook[b.id] || b.status === 'corrected') return 'corrected';
+        if (pick || b.assigned_to) return 'in_review';
+        return b.status || 'needs_review';
+      }
+
+      function languageLabel(lang) {
+        var key = String(lang || '').toLowerCase();
+        if (!key) return t('lang.unknown');
+        return t('lang.' + key, key.charAt(0).toUpperCase() + key.slice(1));
+      }
+
+      function uniqueLanguages(books) {
+        var seen = {};
+        var out = [];
+        (books || []).forEach(function (b) {
+          var key = String(b.language || '').toLowerCase();
+          if (key && !seen[key]) {
+            seen[key] = true;
+            out.push(key);
+          }
+        });
+        return out.sort();
+      }
+
+      function filteredBooks(books) {
+        if (languageFilter === 'all') return books || [];
+        return (books || []).filter(function (b) {
+          return String(b.language || '').toLowerCase() === languageFilter;
+        });
+      }
+
+      function renderFilters(manifest) {
+        var books = manifest.books || [];
+        var langs = uniqueLanguages(books);
+        var visible = filteredBooks(books);
+        var chips = '<button type="button" class="filter-btn' + (languageFilter === 'all' ? ' active' : '') +
+          '" data-lang="all">' + esc(t('lang.all')) + ' <span class="filter-n">(' + books.length + ')</span></button>';
+        langs.forEach(function (lang) {
+          var count = books.filter(function (b) {
+            return String(b.language || '').toLowerCase() === lang;
+          }).length;
+          chips += '<button type="button" class="filter-btn' + (languageFilter === lang ? ' active' : '') +
+            '" data-lang="' + esc(lang) + '">' + esc(languageLabel(lang)) +
+            ' <span class="filter-n">(' + count + ')</span></button>';
+        });
+        return '<div class="filter-bar">' +
+          '<span class="filter-label">' + esc(t('lang.filterLabel')) + '</span>' + chips +
+          '<span class="filter-summary">' + esc(
+            t('lang.showing')
+              .replace('__VISIBLE__', String(visible.length))
+              .replace('__TOTAL__', String(books.length))
+          ) + '</span>' +
+          '</div>';
+      }
+
+      function refreshContent() {
+        if (!currentManifest) return;
+        var filtersEl = document.getElementById('filters');
+        filtersEl.innerHTML = renderFilters(currentManifest);
+        filtersEl.hidden = !(currentManifest.books || []).length;
+        document.getElementById('content').innerHTML = renderBooks(currentManifest);
+        bindFilterHandlers();
+        bindPickHandlers(currentManifest);
+        bindUploadHandlers(currentManifest);
+      }
+
+      function bindFilterHandlers() {
+        document.querySelectorAll('.filter-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            languageFilter = btn.getAttribute('data-lang') || 'all';
+            sessionStorage.setItem('awgp-books-lang-filter', languageFilter);
+            refreshContent();
+          });
+        });
+      }
+
+      function submitCellHtml(b, pick) {
+        var submission = submissionsByBook[b.id];
+        if (submission) {
+          return '<span class="submitted-badge">' + esc(t('table.submitted')) + '</span><br>' +
+            '<span class="mono">' + esc(submission.submitted_by) + '</span>' +
+            '<br><span class="mono">' + esc(formatDate(submission.submitted_at)) + '</span>';
+        }
+        if (b.status === 'published') return '—';
+
+        var defaultName = '';
+        if (pick && pick.picked_up_by) defaultName = pick.picked_up_by;
+        else if (b.assigned_to) defaultName = b.assigned_to;
+
+        if (!config.submitOcrCorrectedUrl) {
+          return '<span class="mono">' + esc(t('table.uploadNotConfigured')) + '</span>';
+        }
+
+        return '<div class="upload-form" data-book-id="' + esc(b.id) + '">' +
+          '<input type="text" class="upload-name" placeholder="' + esc(t('table.yourName')) + '" maxlength="120" value="' + esc(defaultName) + '" aria-label="' + esc(t('table.yourNameUploadAria')) + '" />' +
+          '<label class="upload-file-label">' +
+          '<input type="file" class="upload-file upload-file-hidden" accept=".txt,text/plain" aria-label="ocr-corrected.txt" />' +
+          '<span class="upload-file-text">' + esc(t('table.chooseFile')) + '</span>' +
+          '</label>' +
+          '<button type="button" class="btn btn-secondary upload-btn">' + esc(t('table.upload')) + '</button>' +
+          '</div>' +
+          '<div class="pick-msg upload-msg" hidden></div>';
+      }
+
+      function pickCellHtml(b, pick) {
+        var status = effectiveStatus(b, pick);
+        var done = status === 'corrected' || status === 'published';
+        var sinceTpl = t('table.since');
+
+        if (pick) {
+          return '<span class="picked-name">' + esc(pick.picked_up_by) + '</span>' +
+            '<br><span class="mono">' + esc(sinceTpl.replace('__DATE__', formatDate(pick.picked_up_at))) + '</span>';
+        }
+        if (b.assigned_to && !pick) {
+          return '<span class="picked-name">' + esc(b.assigned_to) + '</span>' +
+            (b.claimed_at ? '<br><span class="mono">' + esc(sinceTpl.replace('__DATE__', b.claimed_at)) + '</span>' : '');
+        }
+        if (done) return '—';
+
+        return '<div class="pick-form" data-book-id="' + esc(b.id) + '">' +
+          '<input type="text" placeholder="' + esc(t('table.yourName')) + '" maxlength="120" aria-label="' + esc(t('table.yourName')) + '" />' +
+          '<button type="button" class="btn btn-secondary pick-save">' + esc(t('table.save')) + '</button>' +
+          '</div>' +
+          '<div class="pick-msg" hidden></div>';
+      }
+
+      function imageHintsHtml(b) {
+        if (!b.has_images) return '';
+        var intro = b.image_guidance_summary || t('table.imageHintsIntro');
+        var pages = b.image_page_hints || [];
+        var list = pages.map(function (h) {
+          return '<li><span class="mono">' + esc(t('table.pageLabel').replace('__PAGE__', String(h.page))) + '</span> — ' + esc(h.hint) + '</li>';
+        }).join('');
+        return '<details class="image-hints">' +
+          '<summary>' + esc(t('table.imageHintsSummary')) + '</summary>' +
+          '<p>' + esc(intro) + '</p>' +
+          (list ? '<ul>' + list + '</ul>' : '') +
+          '</details>';
+      }
+
+      function renderBooks(manifest) {
+        var allBooks = manifest.books || [];
+        var books = filteredBooks(allBooks);
+        if (!allBooks.length) {
+          return '<p class="lead">' + esc(t('table.empty')) + '</p>';
+        }
+        if (!books.length) {
+          return '<p class="lead">' + t('table.emptyFilterHtml') + '</p>';
+        }
+        var labelTitle = t('table.title');
+        var labelLanguage = t('table.language');
+        var labelPages = t('table.pages');
+        var labelStatus = t('table.status');
+        var labelPicked = t('table.pickedUpBy');
+        var labelDownload = t('table.download');
+        var labelSubmit = t('table.submitCorrected');
+        var rows = books.map(function (b) {
+          var pick = picksByBook[b.id];
+          var status = effectiveStatus(b, pick);
+          var statusClass = 'status';
+          if (status === 'published' || status === 'corrected') statusClass += ' corrected';
+          else if (status === 'in_review') statusClass += ' in_review';
+          return '<tr data-book-id="' + esc(b.id) + '">' +
+            '<td data-label="' + esc(labelTitle) + '" class="title-cell"><strong>' + esc(displayTitle(b)) + '</strong>' +
+            (b.has_images ? ' <span class="badge-images">' + esc(t('table.hasIllustrations')) + '</span>' : '') +
+            imageHintsHtml(b) + '</td>' +
+            '<td data-label="' + esc(labelLanguage) + '">' + esc(b.language) + '</td>' +
+            '<td data-label="' + esc(labelPages) + '">' + esc(String(b.pages || '—')) + '</td>' +
+            '<td data-label="' + esc(labelStatus) + '"><span class="status-badge ' + statusClass + '">' + esc(t('status.' + status, status)) + '</span></td>' +
+            '<td data-label="' + esc(labelPicked) + '" class="pick-cell">' + pickCellHtml(b, pick) + '</td>' +
+            '<td data-label="' + esc(labelDownload) + '" class="download-cell"><a class="btn" href="' + esc(b.download_url) + '" download>' + esc(t('table.downloadZip')) + '</a></td>' +
+            '<td data-label="' + esc(labelSubmit) + '" class="submit-cell">' + submitCellHtml(b, pick) + '</td>' +
+            '</tr>';
+        }).join('');
+        return '<div class="table-scroll"><table><thead><tr>' +
+          '<th>' + esc(labelTitle) + '</th><th>' + esc(labelLanguage) + '</th><th>' + esc(labelPages) + '</th><th>' + esc(labelStatus) + '</th><th>' + esc(labelPicked) + '</th><th>' + esc(labelDownload) + '</th><th>' + esc(labelSubmit) + '</th>' +
+          '</tr></thead><tbody>' + rows + '</tbody></table></div>';
+      }
+
+      function supabaseHeaders() {
+        return {
+          apikey: config.supabaseAnonKey,
+          Authorization: 'Bearer ' + config.supabaseAnonKey,
+          'Content-Type': 'application/json'
+        };
+      }
+
+      function fetchSubmissions() {
+        var url = config.supabaseUrl.replace(/\/$/, '') +
+          '/rest/v1/book_ocr_submissions?select=book_id,submitted_by,submitted_at,storage_path';
+        return fetch(url, { headers: supabaseHeaders(), cache: 'no-store' })
+          .then(function (r) {
+            if (r.status === 404 || r.status === 400) return [];
+            if (!r.ok) throw new Error(t('msg.loadSubmissionsFailed').replace('__STATUS__', String(r.status)));
+            return r.json();
+          })
+          .then(function (rows) {
+            submissionsByBook = {};
+            (rows || []).forEach(function (row) {
+              submissionsByBook[row.book_id] = row;
+            });
+          })
+          .catch(function () {
+            submissionsByBook = {};
+          });
+      }
+
+      function uploadCorrected(bookId, name, file, btn) {
+        var trimmed = name.trim();
+        if (trimmed.length < 2) {
+          return Promise.reject(new Error(t('msg.nameShort')));
+        }
+        if (!file) {
+          return Promise.reject(new Error(t('msg.chooseFileErr')));
+        }
+        if (!config.submitOcrCorrectedUrl) {
+          return Promise.reject(new Error(t('msg.uploadUrlMissing')));
+        }
+        btn.disabled = true;
+        var form = new FormData();
+        form.append('book_id', bookId);
+        form.append('submitted_by', trimmed);
+        form.append('file', file, file.name || 'ocr-corrected.txt');
+        return fetch(config.submitOcrCorrectedUrl, {
+          method: 'POST',
+          headers: {
+            apikey: config.supabaseAnonKey,
+            Authorization: 'Bearer ' + config.supabaseAnonKey
+          },
+          body: form
+        }).then(function (r) {
+          return r.json().then(function (body) {
+            if (!r.ok) throw new Error(body.error || t('msg.uploadHttpFailed').replace('__STATUS__', String(r.status)));
+            return body;
+          });
+        }).then(function () {
+          return fetchSubmissions();
+        }).finally(function () {
+          btn.disabled = false;
+        });
+      }
+
+      function bindUploadHandlers(manifest) {
+        document.querySelectorAll('.upload-form').forEach(function (form) {
+          var fileInput = form.querySelector('.upload-file');
+          var fileText = form.querySelector('.upload-file-text');
+          if (fileInput && fileText) {
+            fileInput.addEventListener('change', function () {
+              var name = fileInput.files && fileInput.files[0] && fileInput.files[0].name;
+              fileText.textContent = name || t('table.chooseFile');
+            });
+          }
+        });
+        document.querySelectorAll('.upload-btn').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var form = btn.closest('.upload-form');
+            var bookId = form.getAttribute('data-book-id');
+            var nameInput = form.querySelector('.upload-name');
+            var fileInput = form.querySelector('.upload-file');
+            var msg = form.parentElement.querySelector('.upload-msg');
+            msg.hidden = false;
+            msg.className = 'pick-msg upload-msg';
+            msg.textContent = t('msg.uploading');
+            uploadCorrected(bookId, nameInput.value, fileInput.files[0], btn)
+              .then(function () {
+                refreshContent();
+                var row = document.querySelector('tr[data-book-id="' + bookId + '"]');
+                if (row) {
+                  var m = row.querySelector('.upload-msg');
+                  if (m) {
+                    m.hidden = false;
+                    m.className = 'pick-msg ok upload-msg';
+                    m.textContent = t('msg.uploaded');
+                  }
+                }
+              })
+              .catch(function (err) {
+                msg.className = 'pick-msg error upload-msg';
+                msg.textContent = err.message || t('msg.uploadFailed');
+              });
+          });
+        });
+      }
+
+      function fetchPicks() {
+        var url = config.supabaseUrl.replace(/\/$/, '') +
+          '/rest/v1/book_ocr_picks?select=book_id,picked_up_by,picked_up_at';
+        return fetch(url, { headers: supabaseHeaders(), cache: 'no-store' })
+          .then(function (r) {
+            if (!r.ok) throw new Error(t('msg.loadPicksFailed').replace('__STATUS__', String(r.status)));
+            return r.json();
+          })
+          .then(function (rows) {
+            picksByBook = {};
+            (rows || []).forEach(function (row) {
+              picksByBook[row.book_id] = row;
+            });
+          });
+      }
+
+      function savePick(bookId, name, btn) {
+        var trimmed = name.trim();
+        if (trimmed.length < 2) {
+          return Promise.reject(new Error(t('msg.nameShortPick')));
+        }
+        btn.disabled = true;
+        var url = config.supabaseUrl.replace(/\/$/, '') + '/rest/v1/book_ocr_picks';
+        return fetch(url, {
+          method: 'POST',
+          headers: Object.assign({}, supabaseHeaders(), { Prefer: 'return=minimal' }),
+          body: JSON.stringify({ book_id: bookId, picked_up_by: trimmed })
+        }).then(function (r) {
+          if (r.status === 409 || r.status === 400) {
+            return fetchPicks().then(function () {
+              throw new Error(t('msg.pickedFirst'));
+            });
+          }
+          if (!r.ok) throw new Error(t('msg.saveHttpFailed').replace('__STATUS__', String(r.status)));
+          return fetchPicks();
+        }).finally(function () {
+          btn.disabled = false;
+        });
+      }
+
+      function bindPickHandlers(manifest) {
+        document.querySelectorAll('.pick-save').forEach(function (btn) {
+          btn.addEventListener('click', function () {
+            var form = btn.closest('.pick-form');
+            var bookId = form.getAttribute('data-book-id');
+            var input = form.querySelector('input');
+            var msg = form.parentElement.querySelector('.pick-msg');
+            msg.hidden = false;
+            msg.className = 'pick-msg';
+            msg.textContent = t('msg.saving');
+            savePick(bookId, input.value, btn)
+              .then(function () {
+                refreshContent();
+                var row = document.querySelector('tr[data-book-id="' + bookId + '"]');
+                if (row) {
+                  var m = row.querySelector('.pick-msg') || document.createElement('div');
+                  if (!row.querySelector('.pick-msg')) {
+                    m.className = 'pick-msg ok';
+                    row.querySelector('.pick-cell').appendChild(m);
+                  }
+                  m.hidden = false;
+                  m.className = 'pick-msg ok';
+                  m.textContent = t('msg.saved');
+                }
+              })
+              .catch(function (err) {
+                msg.className = 'pick-msg error';
+                msg.textContent = err.message || t('msg.saveFailed');
+                if (picksByBook[bookId]) {
+                  refreshContent();
+                }
+              });
+          });
+        });
+      }
+
+      function loadAll() {
+        return Promise.all([
+          fetch('config.json', { cache: 'no-store' }).then(function (r) {
+            if (!r.ok) throw new Error(t('msg.configMissing'));
+            return r.json();
+          }),
+          fetch('manifest.json', { cache: 'no-store' }).then(function (r) {
+            if (!r.ok) throw new Error(t('msg.manifestMissing'));
+            return r.json();
+          })
+        ]).then(function (results) {
+          config = results[0];
+          var manifest = results[1];
+          return fetchPicks()
+            .then(function () { return fetchSubmissions(); })
+            .then(function () { return manifest; });
+        });
+      }
+
+      loadAll()
+        .then(function (manifest) {
+          currentManifest = manifest;
+          document.getElementById('page-title').textContent = manifest.title || t('meta.title');
+          if (manifest.description) {
+            document.getElementById('page-desc').textContent = manifest.description;
+          } else {
+            document.getElementById('page-desc').textContent = '';
+          }
+          refreshContent();
+        })
+        .catch(function (err) {
+          document.getElementById('content').innerHTML =
+            '<p class="error">' + esc(err.message) + '</p>';
+        });
+    })();
+  </script>
+</body>
+</html>
