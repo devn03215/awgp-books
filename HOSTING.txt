@@ -10,12 +10,11 @@ Same pattern as:
 
 ## How Pages is published
 
-Pages source is the **gh-pages** branch (static files only, includes `.nojekyll`).
-Source of truth for edits remains `books-landing/` on awgp-mobile → copy into the
-awgp-books checkout on `main`, then publish a fresh `gh-pages` snapshot (below).
+Pages is deployed by the **GitHub Actions** workflow `.github/workflows/deploy-pages.yml`
+on every push to `main` (and via workflow_dispatch).
 
-Do **not** rely on the legacy `main` branch Pages builder alone — it can stick in
-`building` after larger commits (e.g. UI i18n).
+Source of truth for edits remains `books-landing/` on awgp-mobile → copy into the
+awgp-books checkout on `main` and push. Do not rely on the legacy branch builder alone.
 
 UI language (`?lang=hi|gu|mr`) is separate from the on-page book-language filter chips.
 
@@ -24,28 +23,11 @@ UI language (`?lang=hi|gu|mr`) is separate from the on-page book-language filter
 From awgp-mobile (source of truth):
 
 ```powershell
-# 1) Sync files into the books repo checkout (main)
 npx tsx scripts/deploy-books-landing.ts --push
-
-# 2) Publish static snapshot to gh-pages (what GitHub Pages serves)
-$export = "$env:TEMP\awgp-books-static"
-Remove-Item $export -Recurse -Force -ErrorAction SilentlyContinue
-New-Item -ItemType Directory -Path $export | Out-Null
-robocopy c:\dev\git\awgp-books $export /E /XD .git .github /NFL /NDL /NJH /NJS /nc /ns /np | Out-Null
-Copy-Item c:\dev\git\awgp-books\.nojekyll $export\.nojekyll -Force
-cd $export
-git init -b gh-pages
-$env:GIT_AUTHOR_NAME="devn03215"
-$env:GIT_AUTHOR_EMAIL="devn03215@gmail.com"
-$env:GIT_COMMITTER_NAME="devn03215"
-$env:GIT_COMMITTER_EMAIL="devn03215@gmail.com"
-git add -A
-git commit -m "Publish AWGP Books volunteer landing"
-git remote add origin https://github.com/devn03215/awgp-books.git
-git push -f origin gh-pages
 ```
 
-Or use: `npx tsx scripts/deploy-books-landing.ts --push --gh-pages`
+That copies `books-landing/` into `c:\dev\git\awgp-books`, commits/pushes `main`, and
+GitHub Actions publishes the static site.
 
 After deploy, verify:
   https://devn03215.github.io/awgp-books/js/i18n.js
