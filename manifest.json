@@ -490,14 +490,14 @@
       "title": "HINR0702 KATHINAIYON SE DARIYE NAHI LADIE Re2014",
       "language": "hindi",
       "pages": 35,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "HINR0702-kathinaiyon-se-dariye-nahi-ladie-re2014.zip",
       "storage_path": "hindi/HINR0702-kathinaiyon-se-dariye-nahi-ladie-re2014.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINR0702-kathinaiyon-se-dariye-nahi-ladie-re2014.zip?v=2026-09-16-15-22-56",
       "updated_at": "2026-09-16",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-16"
     },
     {
       "id": "0251f80e-f1dc-4ac8-923d-3d97bd3749af",
