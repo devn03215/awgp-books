@@ -444,14 +444,14 @@
       "title": "HINF0384 JO ANUCHIT HAI USASE SAHAMAT NA HON xxyyyy",
       "language": "hindi",
       "pages": 2,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "HINF0384-jo-anuchit-hai-usase-sahamat-na-hon-xxyyyy.zip",
       "storage_path": "hindi/HINF0384-jo-anuchit-hai-usase-sahamat-na-hon-xxyyyy.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINF0384-jo-anuchit-hai-usase-sahamat-na-hon-xxyyyy.zip?v=2026-09-14-02-31-46",
-      "updated_at": "2026-09-14",
+      "updated_at": "2026-09-16",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-16"
     },
     {
       "id": "0090bfc7-2e7f-4063-89f1-38f56b53d228",
