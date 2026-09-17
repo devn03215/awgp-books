@@ -384,14 +384,14 @@
       "title": "GUJR1281 SHIKSHAN JA NAHI VIDHYA PAN XX2010",
       "language": "gujarati",
       "pages": 25,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "GUJR1281-shikshan-ja-nahi-vidhya-pan-xx2010.zip",
       "storage_path": "gujarati/GUJR1281-shikshan-ja-nahi-vidhya-pan-xx2010.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR1281-shikshan-ja-nahi-vidhya-pan-xx2010.zip?v=2026-09-17-16-06-33",
       "updated_at": "2026-09-17",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-17"
     },
     {
       "id": "f386145c-9769-426c-afdd-e25f1811e33b",
