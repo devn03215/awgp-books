@@ -379,6 +379,21 @@
       "corrected_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/003ba5eb-87d2-4433-a28c-8d9133b5f14a/ocr-corrected.txt?v=2026-07-08-15-10-43"
     },
     {
+      "id": "470afdf2-4efd-4a56-9344-d1978c608dc4",
+      "code": "GUJR1281_SHIKSHAN_JA_NAHI_VIDHYA_PAN_XX2010",
+      "title": "GUJR1281 SHIKSHAN JA NAHI VIDHYA PAN XX2010",
+      "language": "gujarati",
+      "pages": 25,
+      "status": "needs_review",
+      "zip_name": "GUJR1281-shikshan-ja-nahi-vidhya-pan-xx2010.zip",
+      "storage_path": "gujarati/GUJR1281-shikshan-ja-nahi-vidhya-pan-xx2010.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR1281-shikshan-ja-nahi-vidhya-pan-xx2010.zip?v=2026-09-17-16-06-33",
+      "updated_at": "2026-09-17",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
       "id": "f386145c-9769-426c-afdd-e25f1811e33b",
       "code": "HINF0367_ANITI_SE_SATARK_RAHEN_ANYAY_KO_ROKEN_xxyyyy",
       "title": "HINF0367 ANITI SE SATARK RAHEN ANYAY KO ROKEN xxyyyy",
