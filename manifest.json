@@ -394,6 +394,21 @@
       "corrected_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/003ba5eb-87d2-4433-a28c-8d9133b5f14a/ocr-corrected.txt?v=2026-07-08-15-10-43"
     },
     {
+      "id": "9f7db858-9e50-463b-9c58-26b9d39ac778",
+      "code": "GUJR1174_SANJIVANI_VIDHYANO_VISTAR_XX2008",
+      "title": "GUJR1174 SANJIVANI VIDHYANO VISTAR XX2008",
+      "language": "gujarati",
+      "pages": 33,
+      "status": "needs_review",
+      "zip_name": "GUJR1174-sanjivani-vidhyano-vistar-xx2008.zip",
+      "storage_path": "gujarati/GUJR1174-sanjivani-vidhyano-vistar-xx2008.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR1174-sanjivani-vidhyano-vistar-xx2008.zip?v=2026-09-18-15-44-59",
+      "updated_at": "2026-09-18",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
       "id": "470afdf2-4efd-4a56-9344-d1978c608dc4",
       "code": "GUJR1281_SHIKSHAN_JA_NAHI_VIDHYA_PAN_XX2010",
       "title": "GUJR1281 SHIKSHAN JA NAHI VIDHYA PAN XX2010",
@@ -543,6 +558,21 @@
       "assigned_to": null,
       "claimed_at": null,
       "completed_at": "2026-09-16"
+    },
+    {
+      "id": "c69b5f79-9213-4e82-9805-674aee7dd20f",
+      "code": "HINR1174_SANJIVANI_VIDHYA_KA_VISTAR_Re2013",
+      "title": "HINR1174 SANJIVANI VIDHYA KA VISTAR Re2013",
+      "language": "hindi",
+      "pages": 35,
+      "status": "needs_review",
+      "zip_name": "HINR1174-sanjivani-vidhya-ka-vistar-re2013.zip",
+      "storage_path": "hindi/HINR1174-sanjivani-vidhya-ka-vistar-re2013.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINR1174-sanjivani-vidhya-ka-vistar-re2013.zip?v=2026-09-18-15-47-43",
+      "updated_at": "2026-09-18",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
     },
     {
       "id": "688181f8-8fd5-4f4c-8d01-78e8540b3541",
