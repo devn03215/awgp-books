@@ -505,14 +505,14 @@
       "title": "HINR0254 BHAV SAMVEDANAON KI GANGOTRI Re2010",
       "language": "hindi",
       "pages": 35,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "HINR0254-bhav-samvedanaon-ki-gangotri-re2010.zip",
       "storage_path": "hindi/HINR0254-bhav-samvedanaon-ki-gangotri-re2010.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINR0254-bhav-samvedanaon-ki-gangotri-re2010.zip?v=2026-09-18-13-31-20",
       "updated_at": "2026-09-18",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-18"
     },
     {
       "id": "1acba27d-27ce-4eb9-98f5-754db55e3337",
