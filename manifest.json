@@ -338,14 +338,14 @@
       "title": "GUJR0254 BHAV SAMVEDNAONI GANGOTRI XX2008",
       "language": "gujarati",
       "pages": 33,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "GUJR0254-bhav-samvednaoni-gangotri-xx2008.zip",
       "storage_path": "gujarati/GUJR0254-bhav-samvednaoni-gangotri-xx2008.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR0254-bhav-samvednaoni-gangotri-xx2008.zip?v=2026-09-18-15-03-57",
       "updated_at": "2026-09-18",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-18"
     },
     {
       "id": "03b9d5b8-2811-40e7-910d-03a80a8e15d8",
