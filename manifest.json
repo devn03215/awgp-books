@@ -399,14 +399,14 @@
       "title": "GUJR1174 SANJIVANI VIDHYANO VISTAR XX2008",
       "language": "gujarati",
       "pages": 33,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "GUJR1174-sanjivani-vidhyano-vistar-xx2008.zip",
       "storage_path": "gujarati/GUJR1174-sanjivani-vidhyano-vistar-xx2008.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR1174-sanjivani-vidhyano-vistar-xx2008.zip?v=2026-09-18-15-44-59",
       "updated_at": "2026-09-18",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-18"
     },
     {
       "id": "470afdf2-4efd-4a56-9344-d1978c608dc4",
