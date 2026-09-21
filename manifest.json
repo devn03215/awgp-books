@@ -595,14 +595,14 @@
       "title": "HINR0662 JIVAN SADHANA KE SWARNIM SUTR Re2014",
       "language": "hindi",
       "pages": 35,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "HINR0662-jivan-sadhana-ke-swarnim-sutr-re2014.zip",
       "storage_path": "hindi/HINR0662-jivan-sadhana-ke-swarnim-sutr-re2014.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINR0662-jivan-sadhana-ke-swarnim-sutr-re2014.zip?v=2026-09-21-15-03-00",
       "updated_at": "2026-09-21",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-21"
     },
     {
       "id": "1acba27d-27ce-4eb9-98f5-754db55e3337",
