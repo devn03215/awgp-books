@@ -378,6 +378,21 @@
       "completed_at": null
     },
     {
+      "id": "11e5b013-9973-402f-b15a-e484aa15ed25",
+      "code": "GUJR0580_EKVISAMI_SADINU_GANGAVATARAN_XXYYYY",
+      "title": "GUJR0580 EKVISAMI SADINU GANGAVATARAN XXYYYY",
+      "language": "gujarati",
+      "pages": 33,
+      "status": "needs_review",
+      "zip_name": "GUJR0580-ekvisami-sadinu-gangavataran-xxyyyy.zip",
+      "storage_path": "gujarati/GUJR0580-ekvisami-sadinu-gangavataran-xxyyyy.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR0580-ekvisami-sadinu-gangavataran-xxyyyy.zip?v=2026-09-21-17-18-38",
+      "updated_at": "2026-09-21",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
       "id": "3ecf1f1a-4167-4e2a-a5ba-695cb2b8bd40",
       "code": "GUJR0662_JIVAN_SADHANANA_SONERI_SUTRO_XX2007",
       "title": "GUJR0662 JIVAN SADHANANA SONERI SUTRO XX2007",
@@ -403,6 +418,21 @@
       "storage_path": "gujarati/GUJR0689-karmakand-bhaskar-re2013.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR0689-karmakand-bhaskar-re2013.zip?v=2026-07-30-17-07-41",
       "updated_at": "2026-07-30",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
+      "id": "ed73c5b4-542d-4c26-abdb-c1d863e06daf",
+      "code": "GUJR0782_NARI_JAGARAN_ABHIYAN_RE2011",
+      "title": "GUJR0782 NARI JAGARAN ABHIYAN RE2011",
+      "language": "gujarati",
+      "pages": 33,
+      "status": "needs_review",
+      "zip_name": "GUJR0782-nari-jagaran-abhiyan-re2011.zip",
+      "storage_path": "gujarati/GUJR0782-nari-jagaran-abhiyan-re2011.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR0782-nari-jagaran-abhiyan-re2011.zip?v=2026-09-21-17-19-03",
+      "updated_at": "2026-09-21",
       "assigned_to": null,
       "claimed_at": null,
       "completed_at": null
@@ -590,6 +620,21 @@
       "completed_at": "2026-09-18"
     },
     {
+      "id": "93b0633e-31ad-488c-92b3-15e218ece3d8",
+      "code": "HINR0580_IKKISAVI_SADI_KA_GANGAVATARAN_Re2014",
+      "title": "HINR0580 IKKISAVI SADI KA GANGAVATARAN Re2014",
+      "language": "hindi",
+      "pages": 35,
+      "status": "needs_review",
+      "zip_name": "HINR0580-ikkisavi-sadi-ka-gangavataran-re2014.zip",
+      "storage_path": "hindi/HINR0580-ikkisavi-sadi-ka-gangavataran-re2014.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINR0580-ikkisavi-sadi-ka-gangavataran-re2014.zip?v=2026-09-21-17-18-28",
+      "updated_at": "2026-09-21",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
       "id": "2caaa3ac-6750-4d2e-a01d-b1bb60f37c9c",
       "code": "HINR0662_JIVAN_SADHANA_KE_SWARNIM_SUTR_Re2014",
       "title": "HINR0662 JIVAN SADHANA KE SWARNIM SUTR Re2014",
@@ -618,6 +663,21 @@
       "assigned_to": null,
       "claimed_at": null,
       "completed_at": "2026-09-16"
+    },
+    {
+      "id": "c9b2a62a-bb0e-4b5a-9b08-d45aa2b263ea",
+      "code": "HINR0782_MAHILA_JAGRUTI_ABHIYAN_Re2011",
+      "title": "HINR0782 MAHILA JAGRUTI ABHIYAN Re2011",
+      "language": "hindi",
+      "pages": 35,
+      "status": "needs_review",
+      "zip_name": "HINR0782-mahila-jagruti-abhiyan-re2011.zip",
+      "storage_path": "hindi/HINR0782-mahila-jagruti-abhiyan-re2011.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINR0782-mahila-jagruti-abhiyan-re2011.zip?v=2026-09-21-17-18-48",
+      "updated_at": "2026-09-21",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
     },
     {
       "id": "c69b5f79-9213-4e82-9805-674aee7dd20f",
