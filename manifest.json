@@ -383,14 +383,14 @@
       "title": "GUJR0580 EKVISAMI SADINU GANGAVATARAN XXYYYY",
       "language": "gujarati",
       "pages": 33,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "GUJR0580-ekvisami-sadinu-gangavataran-xxyyyy.zip",
       "storage_path": "gujarati/GUJR0580-ekvisami-sadinu-gangavataran-xxyyyy.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR0580-ekvisami-sadinu-gangavataran-xxyyyy.zip?v=2026-09-21-17-18-38",
       "updated_at": "2026-09-21",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-21"
     },
     {
       "id": "3ecf1f1a-4167-4e2a-a5ba-695cb2b8bd40",
@@ -625,14 +625,14 @@
       "title": "HINR0580 IKKISAVI SADI KA GANGAVATARAN Re2014",
       "language": "hindi",
       "pages": 35,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "HINR0580-ikkisavi-sadi-ka-gangavataran-re2014.zip",
       "storage_path": "hindi/HINR0580-ikkisavi-sadi-ka-gangavataran-re2014.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINR0580-ikkisavi-sadi-ka-gangavataran-re2014.zip?v=2026-09-21-17-18-28",
       "updated_at": "2026-09-21",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-21"
     },
     {
       "id": "2caaa3ac-6750-4d2e-a01d-b1bb60f37c9c",
