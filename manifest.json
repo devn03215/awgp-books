@@ -378,6 +378,21 @@
       "completed_at": null
     },
     {
+      "id": "3ecf1f1a-4167-4e2a-a5ba-695cb2b8bd40",
+      "code": "GUJR0662_JIVAN_SADHANANA_SONERI_SUTRO_XX2007",
+      "title": "GUJR0662 JIVAN SADHANANA SONERI SUTRO XX2007",
+      "language": "gujarati",
+      "pages": 33,
+      "status": "needs_review",
+      "zip_name": "GUJR0662-jivan-sadhanana-soneri-sutro-xx2007.zip",
+      "storage_path": "gujarati/GUJR0662-jivan-sadhanana-soneri-sutro-xx2007.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR0662-jivan-sadhanana-soneri-sutro-xx2007.zip?v=2026-09-21-15-03-16",
+      "updated_at": "2026-09-21",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
       "id": "d2570cdb-b933-491d-addc-1118990510b8",
       "code": "GUJR0689_KARMAKAND_BHASKAR_RE2013",
       "title": "GUJR0689 KARMAKAND BHASKAR RE2013",
@@ -573,6 +588,21 @@
       "assigned_to": null,
       "claimed_at": null,
       "completed_at": "2026-09-18"
+    },
+    {
+      "id": "2caaa3ac-6750-4d2e-a01d-b1bb60f37c9c",
+      "code": "HINR0662_JIVAN_SADHANA_KE_SWARNIM_SUTR_Re2014",
+      "title": "HINR0662 JIVAN SADHANA KE SWARNIM SUTR Re2014",
+      "language": "hindi",
+      "pages": 35,
+      "status": "needs_review",
+      "zip_name": "HINR0662-jivan-sadhana-ke-swarnim-sutr-re2014.zip",
+      "storage_path": "hindi/HINR0662-jivan-sadhana-ke-swarnim-sutr-re2014.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINR0662-jivan-sadhana-ke-swarnim-sutr-re2014.zip?v=2026-09-21-15-03-00",
+      "updated_at": "2026-09-21",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
     },
     {
       "id": "1acba27d-27ce-4eb9-98f5-754db55e3337",
