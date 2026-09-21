@@ -333,6 +333,21 @@
       "completed_at": null
     },
     {
+      "id": "d64443cf-8a1a-4e9c-bbfc-af11cf026f3e",
+      "code": "GUJR0038_ADHYASHAKTI_GAYATRINI_SAMARTH_SADHANA_RE2010",
+      "title": "GUJR0038 ADHYASHAKTI GAYATRINI SAMARTH SADHANA RE2010",
+      "language": "gujarati",
+      "pages": 33,
+      "status": "needs_review",
+      "zip_name": "GUJR0038-adhyashakti-gayatrini-samarth-sadhana-re2010.zip",
+      "storage_path": "gujarati/GUJR0038-adhyashakti-gayatrini-samarth-sadhana-re2010.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR0038-adhyashakti-gayatrini-samarth-sadhana-re2010.zip?v=2026-09-21-02-00-18",
+      "updated_at": "2026-09-21",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
       "id": "a5602421-7eec-453c-9bd7-b360ea528366",
       "code": "GUJR0254_BHAV_SAMVEDNAONI_GANGOTRI_XX2008",
       "title": "GUJR0254 BHAV SAMVEDNAONI GANGOTRI XX2008",
@@ -515,6 +530,21 @@
       "corrected_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/0090bfc7-2e7f-4063-89f1-38f56b53d228/ocr-corrected.txt"
     },
     {
+      "id": "17b2d483-96dc-46fc-93fd-606416da9c51",
+      "code": "HINR0038_ADHYSHAKTI_GAYATRI_KI_SAMARTH_SADHANA_Re2013",
+      "title": "HINR0038 ADHYSHAKTI GAYATRI KI SAMARTH SADHANA Re2013",
+      "language": "hindi",
+      "pages": 35,
+      "status": "needs_review",
+      "zip_name": "HINR0038-adhyshakti-gayatri-ki-samarth-sadhana-re2013.zip",
+      "storage_path": "hindi/HINR0038-adhyshakti-gayatri-ki-samarth-sadhana-re2013.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINR0038-adhyshakti-gayatri-ki-samarth-sadhana-re2013.zip?v=2026-09-21-01-58-10",
+      "updated_at": "2026-09-21",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
       "id": "605d9fe0-1cf5-409c-9364-291f730fdf67",
       "code": "HINR0181_BACHCHON_KA_NIRMAN_PARIWAR_KI_PRAYOGSHALA_MEIN_Re2015",
       "title": "HINR0181 BACHCHON KA NIRMAN PARIWAR KI PRAYOGSHALA MEIN Re2015",
@@ -565,14 +595,14 @@
       "title": "HINR1174 SANJIVANI VIDHYA KA VISTAR Re2013",
       "language": "hindi",
       "pages": 35,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "HINR1174-sanjivani-vidhya-ka-vistar-re2013.zip",
       "storage_path": "hindi/HINR1174-sanjivani-vidhya-ka-vistar-re2013.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINR1174-sanjivani-vidhya-ka-vistar-re2013.zip?v=2026-09-18-15-47-43",
-      "updated_at": "2026-09-18",
+      "updated_at": "2026-09-21",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-21"
     },
     {
       "id": "688181f8-8fd5-4f4c-8d01-78e8540b3541",
