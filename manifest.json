@@ -535,14 +535,14 @@
       "title": "HINR0038 ADHYSHAKTI GAYATRI KI SAMARTH SADHANA Re2013",
       "language": "hindi",
       "pages": 35,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "HINR0038-adhyshakti-gayatri-ki-samarth-sadhana-re2013.zip",
       "storage_path": "hindi/HINR0038-adhyshakti-gayatri-ki-samarth-sadhana-re2013.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINR0038-adhyshakti-gayatri-ki-samarth-sadhana-re2013.zip?v=2026-09-21-01-58-10",
       "updated_at": "2026-09-21",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-21"
     },
     {
       "id": "605d9fe0-1cf5-409c-9364-291f730fdf67",
