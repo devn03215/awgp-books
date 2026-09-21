@@ -383,14 +383,14 @@
       "title": "GUJR0662 JIVAN SADHANANA SONERI SUTRO XX2007",
       "language": "gujarati",
       "pages": 33,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "GUJR0662-jivan-sadhanana-soneri-sutro-xx2007.zip",
       "storage_path": "gujarati/GUJR0662-jivan-sadhanana-soneri-sutro-xx2007.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR0662-jivan-sadhanana-soneri-sutro-xx2007.zip?v=2026-09-21-15-03-16",
       "updated_at": "2026-09-21",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-21"
     },
     {
       "id": "d2570cdb-b933-491d-addc-1118990510b8",
