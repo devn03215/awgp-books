@@ -338,14 +338,14 @@
       "title": "GUJR0038 ADHYASHAKTI GAYATRINI SAMARTH SADHANA RE2010",
       "language": "gujarati",
       "pages": 33,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "GUJR0038-adhyashakti-gayatrini-samarth-sadhana-re2010.zip",
       "storage_path": "gujarati/GUJR0038-adhyashakti-gayatrini-samarth-sadhana-re2010.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR0038-adhyashakti-gayatrini-samarth-sadhana-re2010.zip?v=2026-09-21-02-00-18",
       "updated_at": "2026-09-21",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-21"
     },
     {
       "id": "a5602421-7eec-453c-9bd7-b360ea528366",
