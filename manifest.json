@@ -428,14 +428,14 @@
       "title": "GUJR0782 NARI JAGARAN ABHIYAN RE2011",
       "language": "gujarati",
       "pages": 33,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "GUJR0782-nari-jagaran-abhiyan-re2011.zip",
       "storage_path": "gujarati/GUJR0782-nari-jagaran-abhiyan-re2011.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR0782-nari-jagaran-abhiyan-re2011.zip?v=2026-09-21-17-19-03",
       "updated_at": "2026-09-21",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-21"
     },
     {
       "id": "003ba5eb-87d2-4433-a28c-8d9133b5f14a",
@@ -670,14 +670,14 @@
       "title": "HINR0782 MAHILA JAGRUTI ABHIYAN Re2011",
       "language": "hindi",
       "pages": 35,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "HINR0782-mahila-jagruti-abhiyan-re2011.zip",
       "storage_path": "hindi/HINR0782-mahila-jagruti-abhiyan-re2011.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINR0782-mahila-jagruti-abhiyan-re2011.zip?v=2026-09-21-17-18-48",
       "updated_at": "2026-09-21",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-09-21"
     },
     {
       "id": "c69b5f79-9213-4e82-9805-674aee7dd20f",
