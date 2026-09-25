@@ -378,6 +378,21 @@
       "completed_at": null
     },
     {
+      "id": "1a7de03e-3051-425d-8ee9-566822692dbe",
+      "code": "GUJR0578_EKVISAMI_SADI_UJJAVAL_BHAVISHYA_BHAG_1_XX2009",
+      "title": "GUJR0578 EKVISAMI SADI UJJAVAL BHAVISHYA BHAG 1 XX2009",
+      "language": "gujarati",
+      "pages": 57,
+      "status": "needs_review",
+      "zip_name": "GUJR0578-ekvisami-sadi-ujjaval-bhavishya-bhag-1-xx2009.zip",
+      "storage_path": "gujarati/GUJR0578-ekvisami-sadi-ujjaval-bhavishya-bhag-1-xx2009.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/gujarati/GUJR0578-ekvisami-sadi-ujjaval-bhavishya-bhag-1-xx2009.zip?v=2026-09-25-15-35-49",
+      "updated_at": "2026-09-25",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
+    },
+    {
       "id": "11e5b013-9973-402f-b15a-e484aa15ed25",
       "code": "GUJR0580_EKVISAMI_SADINU_GANGAVATARAN_XXYYYY",
       "title": "GUJR0580 EKVISAMI SADINU GANGAVATARAN XXYYYY",
@@ -618,6 +633,21 @@
       "assigned_to": null,
       "claimed_at": null,
       "completed_at": "2026-09-18"
+    },
+    {
+      "id": "db236f55-314c-4450-9e0f-46f95532f31a",
+      "code": "HINR0578_IKKISAVI_SADI_BANAM_UJJAVAL_BHAVISHY_BHAG_1_Re2013",
+      "title": "HINR0578 IKKISAVI SADI BANAM UJJAVAL BHAVISHY BHAG 1 Re2013",
+      "language": "hindi",
+      "pages": 59,
+      "status": "needs_review",
+      "zip_name": "HINR0578-ikkisavi-sadi-banam-ujjaval-bhavishy-bhag-1-re2013.zip",
+      "storage_path": "hindi/HINR0578-ikkisavi-sadi-banam-ujjaval-bhavishy-bhag-1-re2013.zip",
+      "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINR0578-ikkisavi-sadi-banam-ujjaval-bhavishy-bhag-1-re2013.zip?v=2026-09-25-15-35-37",
+      "updated_at": "2026-09-25",
+      "assigned_to": null,
+      "claimed_at": null,
+      "completed_at": null
     },
     {
       "id": "93b0633e-31ad-488c-92b3-15e218ece3d8",
