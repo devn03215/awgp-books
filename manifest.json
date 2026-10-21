@@ -655,14 +655,14 @@
       "title": "HINR0578 IKKISAVI SADI BANAM UJJAVAL BHAVISHY BHAG 1 Re2013",
       "language": "hindi",
       "pages": 59,
-      "status": "needs_review",
+      "status": "published",
       "zip_name": "HINR0578-ikkisavi-sadi-banam-ujjaval-bhavishy-bhag-1-re2013.zip",
       "storage_path": "hindi/HINR0578-ikkisavi-sadi-banam-ujjaval-bhavishy-bhag-1-re2013.zip",
       "download_url": "https://awgp-r2-media.awgp.workers.dev/ocr-review/hindi/HINR0578-ikkisavi-sadi-banam-ujjaval-bhavishy-bhag-1-re2013.zip?v=2026-09-25-15-35-37",
-      "updated_at": "2026-09-25",
+      "updated_at": "2026-10-21",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": "2026-10-21"
     },
     {
       "id": "319c0f32-395b-4166-8e05-4f33afeaeddd",
