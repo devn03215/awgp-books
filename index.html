@@ -2,6 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
+  <script>
+    // Keep old GitHub Pages bookmarks, language settings, and shared routes working.
+    (function () {
+      var prefix = '/awgp-books';
+      if (location.hostname !== 'devn03215.github.io' ||
+          (location.pathname !== prefix && !location.pathname.startsWith(prefix + '/'))) return;
+      var suffix = location.pathname.slice(prefix.length).replace(/^\//, '');
+      if (suffix === 'index.html') suffix = '';
+      var destination = new URL('https://awgp.link');
+      destination.pathname = '/books/' + suffix;
+      destination.search = location.search;
+      destination.hash = location.hash;
+      location.replace(destination.href);
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title data-i18n="meta.title">AWGP Books — OCR Review</title>
   <style>

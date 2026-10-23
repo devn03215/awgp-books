@@ -1,42 +1,9 @@
-GitHub Pages for the AWGP Books OCR volunteer landing (public repo under devn03215).
+The current site is https://awgp.link/books/, also available at
+https://awgp.app/books/.
 
-Live URL (after deploy):
-  https://devn03215.github.io/awgp-books/
-  https://devn03215.github.io/awgp-books/?lang=hi
+This repository keeps the old GitHub Pages address working. Its HTML redirects
+visitors to awgp.link while preserving subpages, query parameters, and fragments.
+The existing Pages deployment remains enabled for those redirects.
 
-Same pattern as:
-  https://devn03215.github.io/awgpapp-help/
-  https://devn03215.github.io/awgp-share/
-
-## How Pages is published
-
-Pages is deployed by the **GitHub Actions** workflow `.github/workflows/deploy-pages.yml`
-on every push to `main` (and via workflow_dispatch).
-
-Source of truth for edits remains `books-landing/` on awgp-mobile → copy into the
-awgp-books checkout on `main` and push. Do not rely on the legacy branch builder alone.
-
-UI language (`?lang=hi|gu|mr`) is separate from the on-page book-language filter chips.
-
-## Deploy updates
-
-From awgp-mobile (source of truth):
-
-```powershell
-npx tsx scripts/deploy-books-landing.ts --push
-```
-
-That copies `books-landing/` into `c:\dev\git\awgp-books`, commits/pushes `main`, and
-GitHub Actions publishes the static site.
-
-After deploy, verify:
-  https://devn03215.github.io/awgp-books/js/i18n.js
-  https://devn03215.github.io/awgp-books/?lang=hi
-
-(Hard-refresh or wait ~1 minute for CDN.)
-
-First-time clone:
-
-```powershell
-git clone https://github.com/devn03215/awgp-books.git c:\dev\git\awgp-books
-```
+Canonical site source: shiv213/awgp-mobile (books-landing/).
+Changes there deploy to both domains through its Cloudflare website workflow.

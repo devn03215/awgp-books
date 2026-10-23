@@ -172,7 +172,7 @@ books-ocr-review/
 1. Apply migration: `npx supabase db push` (creates `book_ocr_submissions` table)
 2. Deploy Edge Function: `npm run deploy:submit-ocr`
 3. Refresh landing config: `npm run sync:books-config`
-4. Copy `books-landing/` to [awgp-books](https://github.com/devn03215/awgp-books) and push (include `index.html`, `config.json`, `manifest.json`)
+4. Commit the updated `books-landing/` files in `shiv213/awgp-mobile` and push to `main`; Cloudflare publishes the catalog.
 
 Admin — pull corrected file into local pipeline:
 
@@ -201,33 +201,10 @@ npm run publish:epub:ocr -- 003ba5eb-87d2-4433-a28c-8d9133b5f14a
 
 ---
 
-## Optional later — GitHub Pages (`awgp-books`)
+## Website deployment
 
-Only when you want a public volunteer page. Not needed for local use.
+The catalog is live at [awgp.link/books/](https://awgp.link/books/) and [awgp.app/books/](https://awgp.app/books/).
 
-<details>
-<summary>Deploy to GitHub (click to expand)</summary>
+Canonical source is `books-landing/` in [shiv213/awgp-mobile](https://github.com/shiv213/awgp-mobile). Push changes there to `main`; its Cloudflare website workflow publishes both domains automatically. This repository keeps old GitHub Pages bookmarks working by redirecting them to the same page on `awgp.link`.
 
-Repo: https://github.com/devn03215/awgp-books  
-Live URL would be: https://devn03215.github.io/awgp-books/
-
-### Sync after upload
-
-```powershell
-cd c:\dev\git\awgp-books
-Copy-Item c:\dev\git\awgp-mobile\books-landing\* . -Force
-git add manifest.json index.html config.json README.md .nojekyll
-
-$env:GIT_AUTHOR_NAME="devn03215"
-$env:GIT_AUTHOR_EMAIL="devn03215@gmail.com"
-$env:GIT_COMMITTER_NAME="devn03215"
-$env:GIT_COMMITTER_EMAIL="devn03215@gmail.com"
-git commit -m "Update OCR review manifest"
-git push
-```
-
-### Enable Pages (one-time)
-
-GitHub → repo **Settings → Pages** → branch `main`, folder `/ (root)`.
-
-</details>
+See [HOSTING.txt](./HOSTING.txt). Keep manifest and catalog changes in the canonical source so the custom domains receive them.
