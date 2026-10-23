@@ -1,9 +1,11 @@
-The current site is https://awgp.link/books/, also available at
-https://awgp.app/books/.
+Live site: https://awgp.link/books/ and https://awgp.app/books/.
 
-This repository keeps the old GitHub Pages address working. Its HTML redirects
-visitors to awgp.link while preserving subpages, query parameters, and fragments.
-The existing Pages deployment remains enabled for those redirects.
+Push this repository to main. The Update live website workflow refreshes the
+private Railway website from all three public repositories. It checks that the
+exact commit is visible on both custom domains before completing.
 
-Canonical site source: shiv213/awgp-mobile (books-landing/).
-Changes there deploy to both domains through its Cloudflare website workflow.
+Credential: AWGP_WEBSITE_RAILWAY_TOKEN, scoped to the awgp-web project and
+production environment. The app code stays in the private app repository.
+
+Existing GitHub Pages deployments keep old bookmarks working with redirects
+that preserve paths, query parameters, and fragments.

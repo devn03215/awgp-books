@@ -172,7 +172,7 @@ books-ocr-review/
 1. Apply migration: `npx supabase db push` (creates `book_ocr_submissions` table)
 2. Deploy Edge Function: `npm run deploy:submit-ocr`
 3. Refresh landing config: `npm run sync:books-config`
-4. Commit the updated `books-landing/` files in `shiv213/awgp-mobile` and push to `main`; Cloudflare publishes the catalog.
+4. Copy the updated public catalog files into this repository and push to `main`; Cloudflare publishes both domains.
 
 Admin — pull corrected file into local pipeline:
 
@@ -205,6 +205,6 @@ npm run publish:epub:ocr -- 003ba5eb-87d2-4433-a28c-8d9133b5f14a
 
 The catalog is live at [awgp.link/books/](https://awgp.link/books/) and [awgp.app/books/](https://awgp.app/books/).
 
-Canonical source is `books-landing/` in [shiv213/awgp-mobile](https://github.com/shiv213/awgp-mobile). Push changes there to `main`; its Cloudflare website workflow publishes both domains automatically. This repository keeps old GitHub Pages bookmarks working by redirecting them to the same page on `awgp.link`.
+Push changes here to `main`. **Update live website** refreshes the private Railway website from all three public AWGP repositories, then checks that this exact commit is live on both domains. Edit `index.html`, `manifest.json`, and `js/` here. `config.json` contains only public Supabase settings.
 
-See [HOSTING.txt](./HOSTING.txt). Keep manifest and catalog changes in the canonical source so the custom domains receive them.
+The old GitHub Pages site redirects visitors to the matching page on `awgp.link`. See [HOSTING.txt](./HOSTING.txt).
