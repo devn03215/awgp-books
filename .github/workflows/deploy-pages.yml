@@ -27,7 +27,7 @@ jobs:
       - name: Prepare static site
         run: |
           mkdir -p _site/js/locales
-          cp index.html manifest.json config.json .nojekyll _site/
+          cp index.html edit.html manifest.json config.json .nojekyll _site/
           cp -r js/* _site/js/
           # optional docs
           [ -f HOSTING.txt ] && cp HOSTING.txt _site/ || true
