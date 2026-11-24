@@ -99,6 +99,23 @@
       min-width: 120px;
       white-space: nowrap;
     }
+    td.download-cell .download-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .badge-sample {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 6px;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: rgba(10,132,255,.15);
+      color: #0a84ff;
+      vertical-align: middle;
+    }
     th { font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); }
     tr:last-child td { border-bottom: none; }
     .btn {
@@ -398,7 +415,7 @@
       <strong data-i18n="steps.title">How to help</strong>
       <ol>
         <li data-i18n-html="steps.li1Html">Pick a book with status <em>Needs review</em> — enter your name under <strong>Picked up by</strong> and click <strong>Save</strong> so others know you are working on it.</li>
-        <li data-i18n-html="steps.li2Html">Download the book zip (contains page images + <span class="mono">ocr-draft.txt</span>).</li>
+        <li data-i18n-html="steps.li2Html">Download the book zip (contains page images + <span class="mono">ocr-draft.txt</span>), or use <strong>Edit online</strong> on the two sample books.</li>
         <li data-i18n="steps.li3">Open images alongside the draft text and fix OCR mistakes.</li>
         <li data-i18n-html="steps.li4Html">Keep page markers exactly: <span class="mono">===== PAGE N =====</span></li>
         <li data-i18n-html="steps.li5Html">Fix the text (see <strong>Help</strong> below for Gujarati / Hindi / Marathi — no install needed).</li>
@@ -627,6 +644,17 @@
           '<div class="pick-msg" hidden></div>';
       }
 
+      function downloadCellHtml(b) {
+        var zip = '<a class="btn" href="' + esc(b.download_url) + '" download>' + esc(t('table.downloadZip')) + '</a>';
+        if (!b.edit_online) return zip;
+        var editHref = (window.AWGP_BOOKS_withLang || function (h) { return h; })(
+          'edit.html?id=' + encodeURIComponent(b.id) + '#id=' + encodeURIComponent(b.id),
+          window.AWGP_BOOKS_LANG
+        );
+        return '<div class="download-actions">' + zip +
+          '<a class="btn btn-secondary" href="' + esc(editHref) + '">' + esc(t('table.editOnline')) + '</a></div>';
+      }
+
       function imageHintsHtml(b) {
         if (!b.has_images) return '';
         var intro = b.image_guidance_summary || t('table.imageHintsIntro');
@@ -666,12 +694,13 @@
           return '<tr data-book-id="' + esc(b.id) + '">' +
             '<td data-label="' + esc(labelTitle) + '" class="title-cell"><strong>' + esc(displayTitle(b)) + '</strong>' +
             (b.has_images ? ' <span class="badge-images">' + esc(t('table.hasIllustrations')) + '</span>' : '') +
+            (b.edit_online ? ' <span class="badge-sample">' + esc(t('table.editOnlineSample')) + '</span>' : '') +
             imageHintsHtml(b) + '</td>' +
             '<td data-label="' + esc(labelLanguage) + '">' + esc(b.language) + '</td>' +
             '<td data-label="' + esc(labelPages) + '">' + esc(String(b.pages || '—')) + '</td>' +
             '<td data-label="' + esc(labelStatus) + '"><span class="status-badge ' + statusClass + '">' + esc(t('status.' + status, status)) + '</span></td>' +
             '<td data-label="' + esc(labelPicked) + '" class="pick-cell">' + pickCellHtml(b, pick) + '</td>' +
-            '<td data-label="' + esc(labelDownload) + '" class="download-cell"><a class="btn" href="' + esc(b.download_url) + '" download>' + esc(t('table.downloadZip')) + '</a></td>' +
+            '<td data-label="' + esc(labelDownload) + '" class="download-cell">' + downloadCellHtml(b) + '</td>' +
             '<td data-label="' + esc(labelSubmit) + '" class="submit-cell">' + submitCellHtml(b, pick) + '</td>' +
             '</tr>';
         }).join('');

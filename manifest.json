@@ -225,7 +225,8 @@
       "updated_at": "2026-07-08",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": null,
+      "edit_online": true
     },
     {
       "id": "94e7b87e-2342-401b-b7af-178f1191334e",
@@ -632,7 +633,8 @@
       "updated_at": "2026-09-14",
       "assigned_to": null,
       "claimed_at": null,
-      "completed_at": null
+      "completed_at": null,
+      "edit_online": true
     },
     {
       "id": "3b3710b5-87b2-4cc4-8320-92b7fd293b7f",
