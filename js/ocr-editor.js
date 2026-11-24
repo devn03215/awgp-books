@@ -48,7 +48,19 @@
     status: document.getElementById('save-status')
   };
 
-  els.back.setAttribute('href', withLang('index.html'));
+  function catalogUrl(file) {
+    var scripts = document.getElementsByTagName('script');
+    var src = '';
+    for (var i = 0; i < scripts.length; i++) {
+      if ((scripts[i].src || '').indexOf('ocr-editor.js') !== -1) {
+        src = scripts[i].src;
+        break;
+      }
+    }
+    return new URL('../' + file, src || window.location.href).href;
+  }
+
+  els.back.setAttribute('href', withLang(catalogUrl('index.html')));
 
   function setStatus(msg, kind) {
     els.status.textContent = msg || '';
@@ -299,11 +311,11 @@
   }
 
   Promise.all([
-    fetch('config.json', { cache: 'no-store' }).then(function (r) {
+    fetch(catalogUrl('config.json'), { cache: 'no-store' }).then(function (r) {
       if (!r.ok) throw new Error(t('msg.configMissing'));
       return r.json();
     }),
-    fetch('manifest.json', { cache: 'no-store' }).then(function (r) {
+    fetch(catalogUrl('manifest.json'), { cache: 'no-store' }).then(function (r) {
       if (!r.ok) throw new Error(t('msg.manifestMissing'));
       return r.json();
     })
